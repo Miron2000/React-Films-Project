@@ -1,0 +1,61 @@
+.header {
+    display: flex;
+    justify-content: space-between;
+    background-color: #86B5C2;
+    width: 100%;
+    height: 5rem;
+}
+
+.header__section {
+    display: flex;
+    align-items: center;
+}
+
+.header__logo {
+    width: 63px;
+    height: 47px;
+    margin-top: 5px;
+}
+
+.header__item {
+    padding: 10px 20px;
+    font-family: "Noto Sans CJK SC";
+    font-size: 21px;
+}
+.header__search {
+    font-style: italic;
+    width: 205px;
+    height: 42px;
+    padding-left: 10px;
+    border: 2px solid #7BA7AB;
+    border-radius: 5px;
+    outline: none;
+    background: #F9F0DA;
+    color: #9E9C9C;
+}
+.hover:hover {
+    background-color: #A5B5C2;
+    border-radius: 30px;
+}
+
+@media (max-width: 768px) {
+    .header__logo {
+        width: 49px;
+        height: 40px;
+        margin-top: 20px;
+    }
+
+    .header__item {
+        font-size: 16px;
+    }
+
+    .header__search {
+        width: 110px;
+    }
+}
+
+@media (max-width: 500px) {
+    .header__section {
+        display: none;
+    }
+}
