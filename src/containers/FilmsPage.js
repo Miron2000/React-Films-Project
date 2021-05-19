@@ -18,10 +18,12 @@ class FilmsPage extends React.Component {
         films: []
     }
 
+
+
     componentDidMount() {
         fetchFilms().then((films) => {
             this.setState({
-                    films: films
+                    films: films.sort((a, b) => a['assessment'] > b['assessment'] ? 1 : -1)
                 }
             )
         });

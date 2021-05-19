@@ -1,8 +1,8 @@
 import React from 'react';
-import Header from "./components/Comon/Header";
+import Header from "./components/Common/Header";
 import FilmsPage from "./containers/FilmsPage";
 import Login from "./containers/Login";
-import Footer from "./components/Comon/Footer";
+import Footer from "./components/Common/Footer";
 import './App.css';
 import {BrowserRouter, Route} from "react-router-dom";
 
