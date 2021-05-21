@@ -1,33 +1,42 @@
-import React from 'react';
+const sortTable = (data, activeColumnAcessor, columns, sortingOrder) => {
 
-const sortTable = (data, activeColumn, sortingOrder, columns) => {
+    if (activeColumnAcessor === -1 || data.length === 0) {
+        return data;
+    }
+
     const arrFilms = data.concat();
+    const activeColumn = columns.find(t => t.acessor === activeColumnAcessor);
 
-    function getColumnValue(row, activeColumn) {
+    if (!activeColumn || !activeColumn.data) {
+        throw new Error("Sorry there are no movies");
+    }
 
-        const dataType = columns.find(t => t.acessor === activeColumn);
+    const dataType = activeColumn.data;
 
-        if (dataType && dataType.data) {//при загрузці даних ще немає
-            if (dataType.data === "integer" || dataType.data === "double") {
-                return row[activeColumn];
-            } else if (dataType.data === "text" || dataType.data === "boolean") {
-                return row[activeColumn];
-            } else if (dataType.data === "date") {
-                const dateA = row[activeColumn].split('.').reverse().join('-');
+    function getColumnValue(row, activeColumnAcessor) {
+
+        switch(dataType){
+            case "integer":
+            case "double":
+            case "text":
+            case "boolean":
+                return row[activeColumnAcessor];
+
+            case "date":
+                const dateA = row[activeColumnAcessor].split('.').reverse().join('-');
                 return new Date(dateA).getTime();
-            }
         }
     }
 
     function quickSort(data) {
         if (data.length < 2) return data;
         let pivotRow = data[0];
-        let pivot = getColumnValue(pivotRow, activeColumn);
+        let pivot = getColumnValue(pivotRow, activeColumnAcessor);
         const left = [];
         const right = [];
 
         for (let i = 1; i < data.length; i++) {
-            const columnValue = getColumnValue(data[i], activeColumn);
+            const columnValue = getColumnValue(data[i], activeColumnAcessor);
             if (pivot > columnValue) {
                 left.push(data[i]);
             } else {
