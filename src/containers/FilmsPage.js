@@ -21,7 +21,7 @@ class FilmsPage extends React.Component {
     componentDidMount() {
         fetchFilms().then((films) => {
             this.setState({
-                    films: films
+                    films: films.sort((a, b) => a['assessment'] > b['assessment'] ? 1 : -1)
                 }
             )
         });
@@ -30,13 +30,6 @@ class FilmsPage extends React.Component {
     render() {
         return (
             <>
-                <header className="header">
-                    <div className="header__item"><input className="header__search inputLinerSearch" type="search"
-                                                         name="q" placeholder="Search"/></div>
-                    <div className="header__item"><input className="header__search inputBinarySearch" type="number"
-                                                         name="q" placeholder="Search by Rating"/></div>
-                </header>
-
                 <Table columns={column} data={this.state.films}/>
             </>
         );
