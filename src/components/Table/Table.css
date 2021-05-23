@@ -29,16 +29,12 @@
 }
 .autocomplete {
     position: absolute;
-    left:auto;
-    top: 50px;
-    width: 200px;
+    left: auto;
+    width: 217px;
     background-color: #F9F0DA;
     list-style: none;
     margin: 0;
     padding: 0;
-    border: 2px solid #7BA7AB;
-    border-radius: 5px;
-    border-top: none;
     z-index: 111;
     max-height: 240px;
     height: auto;
