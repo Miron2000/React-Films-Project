@@ -1,3 +1,11 @@
+.preloader {
+    position: absolute;
+    height: 5rem;
+    top: 50%;
+    left: 50%;
+    margin-right: -50%;
+    transform: translate(-50%, -50%);
+}
 .icon__search{
     position: absolute;
     right: 40px;

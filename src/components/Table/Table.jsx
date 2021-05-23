@@ -75,7 +75,7 @@ function Table(props) {
 
 
     useEffect(() => {
-        setResultSearch(arrBinarySearch || props.data)
+        setResultSearch(arrBinarySearch || filteredFilms)
     }, [searchQueryRating])
 
     //for input ul > li
