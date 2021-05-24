@@ -1,6 +1,8 @@
 import React from 'react';
-import Table from "../components/Table/Table";
-import fetchFilms from "../data";
+import '../components/Table/Table.css';
+import Table from '../components/Table/Table';
+import fetchFilms from '../data';
+import preloader from '../preloader/Eclipse-1s-200px.gif';
 
 const column = [
     {acessor: "number", title: "Number", data: "integer"},
@@ -15,12 +17,17 @@ const column = [
 class FilmsPage extends React.Component {
 
     state = {
-        films: []
+        films: [],
+        isLoading: false
     }
 
     componentDidMount() {
+        this.setState({
+            isLoading: true
+        })
         fetchFilms().then((films) => {
             this.setState({
+                isLoading: false,
                     films: films.sort((a, b) => a['assessment'] > b['assessment'] ? 1 : -1)
                 }
             )
@@ -30,6 +37,7 @@ class FilmsPage extends React.Component {
     render() {
         return (
             <>
+                {this.state.isLoading ? <img className='preloader' src={preloader} /> : null}
                 <Table columns={column} data={this.state.films}/>
             </>
         );

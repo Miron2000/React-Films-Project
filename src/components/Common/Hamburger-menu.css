@@ -97,6 +97,7 @@
     #menu__toggle:checked ~ .menu__box {
         visibility: visible;
         left: 0;
+        z-index: 1000;
     }
 
     .menu__btn > span,
