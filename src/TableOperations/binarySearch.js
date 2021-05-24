@@ -25,7 +25,7 @@ export const binarySearch = (arr, target) => {
 
 export const drawTableBinarySearch = (indexSearch, ratingArr, sortArr) => {
     if (indexSearch === -1) {
-        return;
+        return sortArr;
     }
 
     let outputArray = [indexSearch];
@@ -43,7 +43,6 @@ export const drawTableBinarySearch = (indexSearch, ratingArr, sortArr) => {
     }
 
     return outputArray.map((elem, indexSearch) => {
-        console.log(sortArr[outputArray[indexSearch]], 'BinarySearch');
         return sortArr[outputArray[indexSearch]];
     })
 }

@@ -11,13 +11,10 @@ function Table(props) {
     const [sortingOrder, setSortingOrder] = useState('');//'DESC' - по спаданию
     const [activeColumnAcessor, setActiveColumnAcessor] = useState(-1);
 
-    const sortArr = sortTable(props.data, activeColumnAcessor, props.columns, sortingOrder);
-
     //for search
     const [searchQuery, setSearchQuery] = useState('');
     //for search Rating
     const [searchQueryRating, setSearchQueryRating] = useState('');
-    const [resultSearch, setResultSearch] = useState(props.data);
 
     //for input ul > li
     const [isOpen, setIsOpen] = useState(true);
@@ -28,14 +25,6 @@ function Table(props) {
             return <td key={i.acessor}>{item[i.acessor]}</td>;
         })
     }
-
-    useEffect(() => {
-        setResultSearch(props.data);
-    }, [props.data]);
-
-    useEffect(() => {
-        setResultSearch(sortArr);
-    }, [sortingOrder])
 
 
     const handleClickTitle = (item) => {
@@ -48,8 +37,12 @@ function Table(props) {
         setSortingOrder(sortType);
     }
 
-    //linear search
-    const filteredFilms = sortArr.filter(item => {
+    const ratingArr = props.data.map((film) => film.assessment);
+    const indexSearch = binarySearch(ratingArr, searchQueryRating);
+    const arrBinarySearch = drawTableBinarySearch(indexSearch, ratingArr, props.data);
+
+    //Search
+    const filteredFilms = arrBinarySearch.filter(item => {
         const searchItem = (title) => {
             return title.toString().toLowerCase().includes(searchQuery.trim().toLowerCase());
         }
@@ -64,19 +57,8 @@ function Table(props) {
 
     });
 
-    useEffect(() => {
-        setResultSearch(filteredFilms);
-    }, [searchQuery]);
+    const sortArr = sortTable(filteredFilms, activeColumnAcessor, props.columns, sortingOrder);
 
-
-    const ratingArr = sortArr.map((film) => film.assessment);
-    const indexSearch = binarySearch(ratingArr, searchQueryRating);
-    const arrBinarySearch = drawTableBinarySearch(indexSearch, ratingArr, sortArr);
-
-
-    useEffect(() => {
-        setResultSearch(arrBinarySearch || filteredFilms)
-    }, [searchQueryRating])
 
     //for input ul > li
     const itemClickHendler = (e) => {
@@ -101,7 +83,6 @@ function Table(props) {
                            value={searchQuery}
                            onChange={(event) => setSearchQuery(event.target.value)}/>
                     <span className='icon__search'><FontAwesomeIcon icon={faSearch}/></span>
-
 
 
                 </div>
@@ -134,7 +115,7 @@ function Table(props) {
                     </tr>
                     </thead>
                     <tbody>
-                    {resultSearch?.map((item) => <tr key={item.number}>{createTableColumns(item)}</tr>)}
+                    {sortArr?.map((item) => <tr key={item.number}>{createTableColumns(item)}</tr>)}
                     </tbody>
                 </table>
             </div>

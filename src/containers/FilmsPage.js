@@ -18,16 +18,16 @@ class FilmsPage extends React.Component {
 
     state = {
         films: [],
-        isFetching: false
+        isLoading: false
     }
 
     componentDidMount() {
         this.setState({
-            isFetching: true
+            isLoading: true
         })
         fetchFilms().then((films) => {
             this.setState({
-                    isFetching: false,
+                isLoading: false,
                     films: films.sort((a, b) => a['assessment'] > b['assessment'] ? 1 : -1)
                 }
             )
@@ -37,7 +37,7 @@ class FilmsPage extends React.Component {
     render() {
         return (
             <>
-                {this.state.isFetching ? <img className='preloader' src={preloader} /> : null}
+                {this.state.isLoading ? <img className='preloader' src={preloader} /> : null}
                 <Table columns={column} data={this.state.films}/>
             </>
         );
