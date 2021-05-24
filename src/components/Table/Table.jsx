@@ -1,13 +1,11 @@
 import React, {useEffect, useState} from 'react';
 import './Table.css';
-import { Form } from 'react-bootstrap';
 import FilteredInputs from "./FilteredInputs";
 import sortTable from "../../TableOperations/sortTable";
 import {binarySearch, drawTableBinarySearch} from "../../TableOperations/binarySearch";
 import {useSelector, useDispatch} from "react-redux";
 import {searchFilm} from "../../store/reducers/reducers";
 import {setSearchValue, setSearchValueRating} from "../../store/actions/actions";
-import Tooggle from "../Common/Tooggle";
 
 
 function Table(props) {
@@ -24,18 +22,9 @@ function Table(props) {
         dispatch(setSearchValueRating(value))
     }
 
-
-
     const [activeColumnIndex, setActiveColumnIndex] = useState(-1)
     const [sortingOrder, setSortingOrder] = useState('');//'DESC' - по спаданию
     const [activeColumnAcessor, setActiveColumnAcessor] = useState(-1);
-
-    const [darkMode, setDarkMode] = useState(false);
-
-    //for search
-    // const [searchQuery, setSearchQuery] = useState('');
-    //for search Rating
-    // const [searchQueryRating, setSearchQueryRating] = useState('');
 
 
     const createTableColumns = (item) => {
@@ -79,16 +68,14 @@ function Table(props) {
 
 
     return (
-        <div className={darkMode ? "dark-mode" : "light-mode"}>
-
-            <Tooggle  setDarkMode={setDarkMode} darkMode={darkMode}/>
+        <>
 
             <FilteredInputs searchQuery={searchQuery} setSearchQuery={setSearchQuery}
                             searchQueryRating={searchQueryRating} setSearchQueryRating={setSearchQueryRating}
                             sortArr={sortArr}/>
 
             <div className="section-table indentation">
-                <table style={{backgroundColor: darkMode ? '#fff' : '#fff'}} className="table">
+                <table className="table">
                     <thead>
                     <tr>
                         {props.columns.map((item) => <th key={item.acessor} data-type={item.data}
@@ -100,7 +87,7 @@ function Table(props) {
                     </tbody>
                 </table>
             </div>
-        </div>
+        </>
     );
 }
 

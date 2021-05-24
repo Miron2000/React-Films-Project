@@ -6,7 +6,7 @@ const HamburgerMenu = () => {
     return (
         <div className="hamburger-menu">
             <input id="menu__toggle" type="checkbox"/>
-            <label className="menu__btn" htmlFor="menu__toggle"><span></span></label>
+            <label className="menu__btn" htmlFor="menu__toggle"><span className='cross'></span></label>
             <ul className="menu__box">
                 <li><NavLink className="menu__item" to="/films">Table</NavLink></li>
                 <li><NavLink className="menu__item" to="/login">Login</NavLink></li>

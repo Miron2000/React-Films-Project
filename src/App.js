@@ -1,21 +1,35 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import Header from "./components/Common/Header";
 import FilmsPage from "./containers/FilmsPage";
 import Login from "./containers/Login";
 import Footer from "./components/Common/Footer";
-import './App.css';
+import './index.css';
 import {BrowserRouter, Route} from "react-router-dom";
+import Tooggle from "./components/Common/Tooggle";
+import {useDispatch, useSelector} from "react-redux";
+import {setDarkMode} from "./store/actions/actions";
 
 const App = () => {
+    const darkMode = useSelector((state) => state.makeDarkTheme.darkTheme);
+
+    const dispatch = useDispatch();
+    const setDarkModePage = (theme) => {
+        dispatch(setDarkMode(theme))
+    }
+
+
     return (
         <BrowserRouter>
-            <div className="page">
-                <Header/>
-                <section className="section">
-                    <Route exect path='/films' component={FilmsPage}/>
-                    <Route path='/login' component={Login}/>
-                </section>
-                <Footer/>
+            <div className={darkMode ? "dark-mode" : "light-mode"}>
+                <div className="page">
+                    <Header/>
+                    <Tooggle setDarkModePage={setDarkModePage} darkMode={darkMode}/>
+                    <section className="section">
+                        <Route exect path='/films' component={FilmsPage}/>
+                        <Route path='/login' component={Login}/>
+                    </section>
+                    <Footer/>
+                </div>
             </div>
         </BrowserRouter>
     );

@@ -149,4 +149,7 @@
     .table tbody {
         overflow-x: auto;
     }
+    .autocomplete{
+        width: 126px;
+    }
 }

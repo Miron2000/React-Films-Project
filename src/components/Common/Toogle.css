@@ -3,21 +3,6 @@
     justify-content: flex-end;
     margin: 8px;
 }
-
-.dark-mode {
-    background-color: #626363;
-    color: #999;
-    height: 100%;
-    transition: background-color 0.25s ease-in-out;
-}
-
-.light-mode {
-    background-color: #fff;
-    color: #333;
-    height: 100%;
-    transition: background-color 0.25s ease-in-out;
-}
-
 .container {
     display: flex;
     justify-content: center;
