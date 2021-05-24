@@ -1,23 +1,41 @@
 import React, {useEffect, useState} from 'react';
-import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
-import {faSearch} from '@fortawesome/free-solid-svg-icons'
 import './Table.css';
+import { Form } from 'react-bootstrap';
+import FilteredInputs from "./FilteredInputs";
 import sortTable from "../../TableOperations/sortTable";
 import {binarySearch, drawTableBinarySearch} from "../../TableOperations/binarySearch";
+import {useSelector, useDispatch} from "react-redux";
+import {searchFilm} from "../../store/reducers/reducers";
+import {setSearchValue, setSearchValueRating} from "../../store/actions/actions";
+import Tooggle from "../Common/Tooggle";
+
 
 function Table(props) {
+
+    const searchQuery = useSelector((state) => state.searchFilm.searchQuery);
+    const searchQueryRating = useSelector((state) => state.searchFilm.searchQueryRating);
+
+
+    const dispatch = useDispatch();
+    const setSearchQuery = (value) => {
+        dispatch(setSearchValue(value))
+    }
+    const setSearchQueryRating = (value) => {
+        dispatch(setSearchValueRating(value))
+    }
+
+
 
     const [activeColumnIndex, setActiveColumnIndex] = useState(-1)
     const [sortingOrder, setSortingOrder] = useState('');//'DESC' - по спаданию
     const [activeColumnAcessor, setActiveColumnAcessor] = useState(-1);
 
-    //for search
-    const [searchQuery, setSearchQuery] = useState('');
-    //for search Rating
-    const [searchQueryRating, setSearchQueryRating] = useState('');
+    const [darkMode, setDarkMode] = useState(false);
 
-    //for input ul > li
-    const [isOpen, setIsOpen] = useState(true);
+    //for search
+    // const [searchQuery, setSearchQuery] = useState('');
+    //for search Rating
+    // const [searchQueryRating, setSearchQueryRating] = useState('');
 
 
     const createTableColumns = (item) => {
@@ -60,54 +78,17 @@ function Table(props) {
     const sortArr = sortTable(filteredFilms, activeColumnAcessor, props.columns, sortingOrder);
 
 
-    //for input ul > li
-    const itemClickHendler = (e) => {
-        setSearchQueryRating(e.target.textContent);
-        setIsOpen(false);
-
-    }
-    const inputClickHandler = () => {
-        setIsOpen(true);
-    }
-
-
     return (
-        <>
-            <div className='searchInputs'>
-                <div className="searchInputs__item">
+        <div className={darkMode ? "dark-mode" : "light-mode"}>
 
-                    <input className="searchInputs__search"
-                           type="search"
-                           name="q"
-                           placeholder="Search..."
-                           value={searchQuery}
-                           onChange={(event) => setSearchQuery(event.target.value)}/>
-                    <span className='icon__search'><FontAwesomeIcon icon={faSearch}/></span>
+            <Tooggle  setDarkMode={setDarkMode} darkMode={darkMode}/>
 
-
-                </div>
-                <div className="searchInputs__item"><input className="searchInputs__search"
-                                                           type="number"
-                                                           name="q"
-                                                           placeholder="Search by Rating"
-                                                           onChange={(event) => setSearchQueryRating(event.target.value)}
-                                                           onClick={inputClickHandler}/>
-
-                    <ul className='autocomplete'>
-                        {
-                            searchQueryRating && isOpen ? sortArr.map((item) => {
-                                return (
-                                    <li className='searchInputs__item'
-                                        key={item.number} onClick={itemClickHendler}>{item.assessment}</li>
-                                )
-                            }) : null
-                        }
-                    </ul>
-                </div>
-            </div>
+            <FilteredInputs searchQuery={searchQuery} setSearchQuery={setSearchQuery}
+                            searchQueryRating={searchQueryRating} setSearchQueryRating={setSearchQueryRating}
+                            sortArr={sortArr}/>
 
             <div className="section-table indentation">
-                <table className="table">
+                <table style={{backgroundColor: darkMode ? '#fff' : '#fff'}} className="table">
                     <thead>
                     <tr>
                         {props.columns.map((item) => <th key={item.acessor} data-type={item.data}
@@ -119,7 +100,7 @@ function Table(props) {
                     </tbody>
                 </table>
             </div>
-        </>
+        </div>
     );
 }
 

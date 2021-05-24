@@ -71,13 +71,15 @@
 .table {
     width: 100%;
     box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+    background-color: #ffffff;
     /*border-collapse: collapse;*/
 }
 
 .table th, .table td {
     text-align: center;
     padding: 10px;
-    font-family: "Noto Sans CJK SC"
+    font-family: "Noto Sans CJK SC";
+    color: black;
 }
 
 .table th {
