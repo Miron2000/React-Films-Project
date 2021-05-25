@@ -39,7 +39,7 @@
 // console.log('Start');
 
 //Повернути фільми
-// import fetchFilms from '../src/data';
+// import {data} from '../src/data';
 
 const express = require('express');
 const bodyParser = require('body-parser');
@@ -155,16 +155,19 @@ app.get('/films/:id', function(req, res){
 
 //отправка данных
 app.post('/films', function(req, res){
-   const film = {
-       id: Date.now(),
-       name: Date.name,//все что с Date делает просто Date в postman
-       genre: Date.genre,
-       releaseDate: Date.releaseDate,
-       countries: Date.countries,
-       assessment: Date.assessment,
-       imdbFilm: Date.imdbFilm
-   };
-   films.push(film);
+    const film = films.map((film) => {
+        return    {
+            id: Date.now(),
+            name: film.name,//все что с Date делает просто Date в postman
+            genre: film.genre,
+            releaseDate: film.releaseDate,
+            countries: film.countries,
+            assessment: film.assessment,
+            imdbFilm: film.imdbFilm
+        };
+    })
+
+   // films.push(film);
    res.send(film);
 })
 
@@ -178,12 +181,12 @@ app.put('/films/:id', function(req, res){
 })
 
 app.delete('/films/:id', function(req, res){
-    films.filter(function(item){
+   const result =  films.filter(function(item){
         return item.id !== Number(req.params.id)
     })
-    res.sendStatus(200);
+    res.status(200).send(result);
 })
 
-app.listen(5000, function () {
+app.listen(8000, function () {
     console.log('API app started');
 })

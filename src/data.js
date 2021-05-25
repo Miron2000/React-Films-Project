@@ -1,4 +1,4 @@
-const data = [
+export const data = [
     {
         number: 3,
         films: 'Babysitting',
@@ -94,7 +94,7 @@ const data = [
 // const fetchFilms = () => {
 //     return data;
 // };
-const fetchFilms = () => {
+export const fetchFilms = () => {
     return new Promise((resolve) => {
         setTimeout(() => {
             resolve(data);
@@ -102,4 +102,4 @@ const fetchFilms = () => {
     });
 };
 
-export default fetchFilms;
+// export default fetchFilms;
