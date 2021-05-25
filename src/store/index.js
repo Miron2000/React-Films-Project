@@ -1,9 +1,9 @@
 import {combineReducers, createStore, applyMiddleware} from "redux";
-import {Theme, searchFilm} from './reducers/reducers';
+import {Theme, Films} from './reducers/reducers';
 import thunk from 'redux-thunk';
 import {compose} from 'redux';
 
-const reducers = combineReducers({searchFilm: searchFilm, Theme: Theme});
+const reducers = combineReducers({Films: Films, Theme: Theme});
 
 const enchancedMiddleware = compose(applyMiddleware(thunk));
 

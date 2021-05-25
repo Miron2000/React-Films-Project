@@ -2,7 +2,7 @@ export const filmActionType = {
     SET_VALUE_SEARCH_QUERY_INPUT: 'VALUE_SEARCH_QUERY_INPUT',
    SET_VALUE_SEARCH_QUERY_RATING_INPUT: 'VALUE_SEARCH_QUERY_INPUT_BY_RATING'
 }
-export const darkMode = {
+export const darkModeType = {
     SET_DARK_MODE: 'SET_DARK_MODE'
 }
 
@@ -18,6 +18,6 @@ export const setSearchValueRating = (payload) => ({
 });
 
 export const setDarkMode = (payload) => ({
-    type: darkMode.SET_DARK_MODE,
+    type: darkModeType.SET_DARK_MODE,
     payload
 })

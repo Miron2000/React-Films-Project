@@ -1,4 +1,4 @@
-import {filmActionType, darkMode} from '../actions/actions';
+import {filmActionType, darkModeType} from '../actions/actions';
 
 const initialState = {
     searchQuery: '',
@@ -6,7 +6,7 @@ const initialState = {
     darkTheme: false
 };
 
-export const searchFilm = (state = initialState, action) => {
+export const Films = (state = initialState, action) => {
     switch (action.type) {
         case filmActionType.SET_VALUE_SEARCH_QUERY_INPUT:
             return ({
@@ -26,7 +26,7 @@ export const searchFilm = (state = initialState, action) => {
 
 export const Theme = (state = initialState, action) => {
     switch (action.type) {
-        case darkMode.SET_DARK_MODE:
+        case darkModeType.SET_DARK_MODE:
             return ({
                 ...state,
                 darkTheme: action.payload

@@ -4,14 +4,14 @@ import FilteredInputs from "./FilteredInputs";
 import sortTable from "../../TableOperations/sortTable";
 import {binarySearch, drawTableBinarySearch} from "../../TableOperations/binarySearch";
 import {useSelector, useDispatch} from "react-redux";
-import {searchFilm} from "../../store/reducers/reducers";
+import {Films} from "../../store/reducers/reducers";
 import {setSearchValue, setSearchValueRating} from "../../store/actions/actions";
 
 
 function Table(props) {
 
-    const searchQuery = useSelector((state) => state.searchFilm.searchQuery);
-    const searchQueryRating = useSelector((state) => state.searchFilm.searchQueryRating);
+    const searchQuery = useSelector((state) => state.Films.searchQuery);
+    const searchQueryRating = useSelector((state) => state.Films.searchQueryRating);
 
 
     const dispatch = useDispatch();

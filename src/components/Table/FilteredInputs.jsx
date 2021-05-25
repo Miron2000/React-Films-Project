@@ -4,10 +4,9 @@ import {faSearch} from '@fortawesome/free-solid-svg-icons';
 import './Table.css';
 
 function FilteredInputs(props){
-    //for input ul > li
+
     const [isOpen, setIsOpen] = useState(true);
 
-    //for input ul > li
     const itemClickHandler = (e) => {
         props.setSearchQueryRating(e.target.textContent);
         setIsOpen(false);
