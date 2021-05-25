@@ -8,13 +8,13 @@ const initialState = {
 
 export const searchFilm = (state = initialState, action) => {
     switch (action.type) {
-        case filmActionType.valueSearchQueryInput:
+        case filmActionType.SET_VALUE_SEARCH_QUERY_INPUT:
             return ({
                 ...state,
                 searchQuery: action.payload
             });
 
-        case filmActionType.valueSearchQueryRatingInput:
+        case filmActionType.SET_VALUE_SEARCH_QUERY_RATING_INPUT:
             return ({
                 ...state,
                 searchQueryRating: action.payload
@@ -24,7 +24,7 @@ export const searchFilm = (state = initialState, action) => {
     }
 };
 
-export const makeDarkTheme = (state = initialState, action) => {
+export const Theme = (state = initialState, action) => {
     switch (action.type) {
         case darkMode.SET_DARK_MODE:
             return ({

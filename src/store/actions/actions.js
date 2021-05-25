@@ -1,6 +1,6 @@
 export const filmActionType = {
-    valueSearchQueryInput: 'VALUE_SEARCH_QUERY_INPUT',
-    valueSearchQueryRatingInput: 'VALUE_SEARCH_QUERY_INPUT_BY_RATING'
+    SET_VALUE_SEARCH_QUERY_INPUT: 'VALUE_SEARCH_QUERY_INPUT',
+   SET_VALUE_SEARCH_QUERY_RATING_INPUT: 'VALUE_SEARCH_QUERY_INPUT_BY_RATING'
 }
 export const darkMode = {
     SET_DARK_MODE: 'SET_DARK_MODE'
@@ -8,12 +8,12 @@ export const darkMode = {
 
 
 export const setSearchValue = (payload) => ({
-    type: filmActionType.valueSearchQueryInput,
+    type: filmActionType.SET_VALUE_SEARCH_QUERY_INPUT,
     payload
 });
 
 export const setSearchValueRating = (payload) => ({
-    type: filmActionType.valueSearchQueryRatingInput,
+    type: filmActionType.SET_VALUE_SEARCH_QUERY_RATING_INPUT,
     payload
 });
 

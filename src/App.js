@@ -8,9 +8,10 @@ import {BrowserRouter, Route} from "react-router-dom";
 import Tooggle from "./components/Common/Tooggle";
 import {useDispatch, useSelector} from "react-redux";
 import {setDarkMode} from "./store/actions/actions";
+import {Theme} from "./store/reducers/reducers";
 
 const App = () => {
-    const darkMode = useSelector((state) => state.makeDarkTheme.darkTheme);
+    const darkMode = useSelector((state) => state.Theme.darkTheme);
 
     const dispatch = useDispatch();
     const setDarkModePage = (theme) => {

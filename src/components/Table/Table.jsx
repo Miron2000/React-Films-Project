@@ -69,7 +69,6 @@ function Table(props) {
 
     return (
         <>
-
             <FilteredInputs searchQuery={searchQuery} setSearchQuery={setSearchQuery}
                             searchQueryRating={searchQueryRating} setSearchQueryRating={setSearchQueryRating}
                             sortArr={sortArr}/>
