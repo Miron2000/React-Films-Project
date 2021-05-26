@@ -1,4 +1,4 @@
-export const data = [
+const data = [
     {
         number: 3,
         films: 'Babysitting',
@@ -91,15 +91,18 @@ export const data = [
     },
 ];
 
+module.exports = data;
+
 // const fetchFilms = () => {
 //     return data;
 // };
-export const fetchFilms = () => {
-    return new Promise((resolve) => {
-        setTimeout(() => {
-            resolve(data);
-        }, 1000);
-    });
-};
-
+// const fetchFilms = () => {
+//     return new Promise((resolve) => {
+//         setTimeout(() => {
+//             resolve(data);
+//         }, 1000);
+//     });
+// };
+//
 // export default fetchFilms;
+
