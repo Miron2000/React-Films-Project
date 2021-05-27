@@ -1,7 +1,6 @@
 import React from 'react';
 import '../components/Table/Table.css';
 import Table from '../components/Table/Table';
-import fetchFilms from '../data';
 import preloader from '../preloader/Eclipse-1s-200px.gif';
 
 const column = [
