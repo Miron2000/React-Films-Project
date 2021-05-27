@@ -82,7 +82,7 @@ function Table(props) {
                     </tr>
                     </thead>
                     <tbody>
-                    {sortArr?.map((item) => <tr key={item.number}>{createTableColumns(item)}</tr>)}
+                    {sortArr?.map((item) => <tr key={item.id}>{createTableColumns(item)}</tr>)}
                     </tbody>
                 </table>
             </div>

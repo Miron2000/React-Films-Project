@@ -5,8 +5,8 @@ import fetchFilms from '../data';
 import preloader from '../preloader/Eclipse-1s-200px.gif';
 
 const column = [
-    {acessor: "number", title: "Number", data: "integer"},
-    {acessor: "films", title: "Films", data: "text"},
+    {acessor: "id", title: "Number", data: "integer"},
+    {acessor: "name", title: "Films", data: "text"},
     {acessor: "genre", title: "Genre", data: "text"},
     {acessor: "releaseDate", title: "Release date", data: "date"},
     {acessor: "countries", title: "Countries", data: "text"},

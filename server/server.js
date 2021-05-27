@@ -12,23 +12,26 @@ app.use(bodyParser.urlencoded({extended: true}));
 
 app.use(express.static(path.join(__dirname, "/../build")));
 
+const objectFilm = (req) => {
+    const film = films.find(function (film) {
+        return film.id === Number(req.params.id)
+    });
+    return film
+}
 
 app.get('/api/films', function (req, res) {
     res.json(films);
 })
 
-app.get('/api/film/:number', function (req, res) {
-    const film = films.find(function (film) {
-        return film.number === Number(req.params.number)
-    });
-    res.send(film)
+app.get('/api/film/:id', function (req, res) {
+    res.send(objectFilm(req))
 })
 
 //отправка данных
 app.post('/api/film', function (req, res) {
     const film = {
-        number: req.body.number,
-        films: req.body.name,//body все що приходить від клієнта
+        id: req.body.id,
+        name: req.body.name,//body все що приходить від клієнта
         genre: req.body.genre,
         releaseDate: req.body.releaseDate,
         countries: req.body.countries,
@@ -40,18 +43,15 @@ app.post('/api/film', function (req, res) {
     res.send(film);
 })
 
-app.put('/api/film/:number', function (req, res) {
-    let film = films.find(function (film) {
-        return film.number === Number(req.params.number)
-    });
-    film.name = req.body.name;
-    res.send(film);
+app.put('/api/film/:id', function (req, res) {
+    objectFilm(req).name = req.body.name;
+    res.send(objectFilm(req));
     // res.sendStatus(200);
 })
 
-app.delete('/api/film/:number', function (req, res) {
+app.delete('/api/film/:id', function (req, res) {
     const result = films.filter(function (item) {
-        return item.number !== Number(req.params.number)
+        return item.id !== Number(req.params.id)
     })
     res.status(200).send(result);
 })
