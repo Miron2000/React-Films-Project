@@ -13,9 +13,6 @@ import {Theme} from "./store/reducers/reducers";
 const App = () => {
     const isDarkMode = useSelector((state) => state.Theme.darkTheme);
 
-    localStorage.setItem('isDarkMode',JSON.stringify(isDarkMode));
-    const getIsDarkMode = localStorage.getItem('isDarkMode');
-
     const dispatch = useDispatch();
     const setDarkMode = (theme) => {
         dispatch(setDarkModeAction(theme))

@@ -93,16 +93,3 @@ const data = [
 
 module.exports = data;
 
-// const fetchFilms = () => {
-//     return data;
-// };
-// const fetchFilms = () => {
-//     return new Promise((resolve) => {
-//         setTimeout(() => {
-//             resolve(data);
-//         }, 1000);
-//     });
-// };
-//
-// export default fetchFilms;
-

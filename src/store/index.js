@@ -7,4 +7,14 @@ const reducers = combineReducers({Films: Films, Theme: Theme});
 
 const enchancedMiddleware = compose(applyMiddleware(thunk));
 
-export const store = createStore(reducers, enchancedMiddleware);
+const isDarkMode = localStorage.getItem('isDarkMode');
+let preloadedState;
+if(isDarkMode) {
+    preloadedState = {Theme: {darkTheme: JSON.parse(isDarkMode)}};
+}
+
+export const store = createStore(reducers, preloadedState, enchancedMiddleware);
+
+
+
+

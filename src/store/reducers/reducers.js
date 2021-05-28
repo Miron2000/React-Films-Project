@@ -1,12 +1,15 @@
 import {filmActionType, darkModeType} from '../actions/actions';
 
-const initialState = {
+const filmInitialState = {
     searchQuery: '',
-    searchQueryRating: '',
+    searchQueryRating: ''
+};
+
+const themeInitialState = {
     darkTheme: false
 };
 
-export const Films = (state = initialState, action) => {
+export const Films = (state = filmInitialState, action) => {
     switch (action.type) {
         case filmActionType.SET_VALUE_SEARCH_QUERY_INPUT:
             return ({
@@ -24,7 +27,7 @@ export const Films = (state = initialState, action) => {
     }
 };
 
-export const Theme = (state = initialState, action) => {
+export const Theme = (state = themeInitialState, action) => {
     switch (action.type) {
         case darkModeType.SET_DARK_MODE:
             return ({

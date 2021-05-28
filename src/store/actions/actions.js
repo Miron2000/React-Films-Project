@@ -17,7 +17,11 @@ export const setSearchValueRating = (payload) => ({
     payload
 });
 
-export const setDarkMode = (payload) => ({
-    type: darkModeType.SET_DARK_MODE,
-    payload
-})
+export const setDarkMode = (payload) => {
+    localStorage.setItem('isDarkMode',JSON.stringify(payload));
+    return {
+        type: darkModeType.SET_DARK_MODE,
+        payload
+    };
+};
+

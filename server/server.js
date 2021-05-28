@@ -1,4 +1,5 @@
 const films = require('../src/data');
+const port = 8000;
 const express = require('express');
 const bodyParser = require('body-parser');
 const cors = require('cors');
@@ -12,24 +13,18 @@ app.use(bodyParser.urlencoded({extended: true}));
 
 // все что пишет user в url строке
 //app.use(morgan('combined'));
-app.use(morgan(':method :url :status :res[content-length] - :response-time ms'));
-// app.use(morgan(function (tokens, req, res) {
-//     return [
-//         tokens.method(req, res),
-//         tokens.url(req, res),
-//         tokens.status(req, res),
-//         tokens.res(req, res, 'content-length'), '-',
-//         tokens['response-time'](req, res), 'ms'
-//     ].join(' ')
-// }))
-
+// app.use(morgan(':method :url :status :res[content-length] - :response-time ms'));
+app.use(function (req, res, next){
+    console.log(` Request Type - ${req.method} \n Request URL - ${req.url} \n Time - ${Date.now()} ms \n`);
+    next();
+})
 
 app.use(express.static(path.join(__dirname, "/../build")));
 
 
-const objectFilm = (req) => {
+const findFilmById = (id) => {
     const film = films.find(function (film) {
-        return film.id === Number(req.params.id)
+        return film.id === Number(id.params.id)
     });
     return film
 }
@@ -43,7 +38,7 @@ app.get('/api/films', function (req, res) {
 })
 
 app.get('/api/film/:id', function (req, res) {
-    res.send(objectFilm(req))
+    res.send(findFilmById(req))
 })
 
 //отправка данных
@@ -63,8 +58,8 @@ app.post('/api/film', function (req, res) {
 })
 
 app.put('/api/film/:id', function (req, res) {
-    objectFilm(req).name = req.body.name;
-    res.send(objectFilm(req));
+    findFilmById(req).name = req.body.name;
+    res.send(findFilmById(req));
     // res.sendStatus(200);
 })
 
@@ -76,13 +71,15 @@ app.delete('/api/film/:id', function (req, res) {
 })
 
 app.get('/redirectme', function(req, res){
-    res.sendFile(path.join(__dirname,'..', "build", "index.html"));
+    res.redirect('/');
 })
 
 app.get('*', function (req, res) {
    res.sendFile(path.join(__dirname,'..', "build", "index.html"))
 })
 
-app.listen(8000, function () {
-    console.log('Server is running');
+
+app.listen(port, function () {
+    console.log(`Server is running on the ${port} port`);
 })
+
