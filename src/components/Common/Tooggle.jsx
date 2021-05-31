@@ -3,16 +3,16 @@ import './Toogle.css';
 
 const Toogle = ({setDarkMode, isDarkMode}) => {
 
-    return(
+    return (
         <div className='theme'>
-            <span className="sun">🌞</span>
             <div className="switch-checkbox">
                 <label className="switch">
-                    <input type="checkbox" onChange={() => {setDarkMode(!isDarkMode)}}/>
-                    <span className="slider round"> </span>
+                    <input type="checkbox" onChange={() => {
+                        setDarkMode(!isDarkMode)
+                    }}/>
+                    {isDarkMode ? <span className="checked round"> </span> : <span className="notChecked round"> </span>}
                 </label>
             </div>
-            <span className="moon">🌜</span>
         </div>
     );
 }

@@ -18,7 +18,6 @@ const App = () => {
         dispatch(setDarkModeAction(theme))
     }
 
-
     return (
         <BrowserRouter>
             <div className={isDarkMode ? "dark-mode" : "light-mode"}>

@@ -1,7 +1,7 @@
 const data = [
     {
-        number: 3,
-        films: 'Babysitting',
+        id: 3,
+        name: 'Babysitting',
         genre: 'Comedy',
         releaseDate: '16.04.2014',
         countries: 'France',
@@ -9,8 +9,8 @@ const data = [
         imdbFilm: 'No'
     },
     {
-        number: 5,
-        films: 'The Shawshank Redemption',
+        id: 5,
+        name: 'The Shawshank Redemption',
         genre: 'Drama',
         releaseDate: '10.09.1994',
         countries: 'USA',
@@ -18,8 +18,8 @@ const data = [
         imdbFilm: 'Yes'
     },
     {
-        number: 1,
-        films: 'Papillon',
+        id: 1,
+        name: 'Papillon',
         genre: 'Drama, crime',
         releaseDate: '09.09.2017',
         countries: 'USA',
@@ -27,8 +27,8 @@ const data = [
         imdbFilm: 'Yes',
     },
     {
-        number: 2,
-        films: 'The Hangover',
+        id: 2,
+        name: 'The Hangover',
         genre: 'Comedy',
         releaseDate: '30.05.2009',
         countries: 'USA',
@@ -36,8 +36,8 @@ const data = [
         imdbFilm: 'Yes'
     },
     {
-        number: 4,
-        films: 'Venom',
+        id: 4,
+        name: 'Venom',
         genre: 'Drama, crime',
         releaseDate: '01.10.2018',
         countries: 'USA',
@@ -45,8 +45,8 @@ const data = [
         imdbFilm: 'No'
     },
     {
-        number: 6,
-        films: 'The Silence of the Lambs',
+        id: 6,
+        name: 'The Silence of the Lambs',
         genre: 'Horror',
         releaseDate: '30.01.1991',
         countries: 'USA',
@@ -54,8 +54,8 @@ const data = [
         imdbFilm: 'Yes'
     },
     {
-        number: 9,
-        films: 'Dumb and Dumber',
+        id: 9,
+        name: 'Dumb and Dumber',
         genre: 'Comedy',
         releaseDate: '16.12.1994',
         countries: 'USA',
@@ -63,8 +63,8 @@ const data = [
         imdbFilm: 'No'
     },
     {
-        number: 7,
-        films: 'WALL-E',
+        id: 7,
+        name: 'WALL-E',
         genre: 'Adventures, Fiction',
         releaseDate: '23.06.2008',
         countries: 'USA',
@@ -72,8 +72,8 @@ const data = [
         imdbFilm: 'Yes'
     },
     {
-        number: 8,
-        films: '1917 (Film)',
+        id: 8,
+        name: '1917 (Film)',
         genre: 'Drama',
         releaseDate: '04.12.2019',
         countries: 'Great Britain, USA',
@@ -81,8 +81,8 @@ const data = [
         imdbFilm: 'Yes'
     },
     {
-        number: 10,
-        films: 'Transformers',
+        id: 10,
+        name: 'Transformers',
         genre: 'Fiction, Thriller',
         releaseDate: '12.06.2007',
         countries: 'USA',
@@ -91,15 +91,5 @@ const data = [
     },
 ];
 
-// const fetchFilms = () => {
-//     return data;
-// };
-const fetchFilms = () => {
-    return new Promise((resolve) => {
-        setTimeout(() => {
-            resolve(data);
-        }, 1000);
-    });
-};
+module.exports = data;
 
-export default fetchFilms;
