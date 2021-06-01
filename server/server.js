@@ -1,5 +1,6 @@
-const films = require('../src/data');
-const port = 8000;
+const data = require('../src/data');
+const filmsArr = require('../src/filmsArr');
+const PORT = 8000;
 const express = require('express');
 const bodyParser = require('body-parser');
 const cors = require('cors');
@@ -7,8 +8,56 @@ const path = require('path');
 const morgan = require('morgan');
 const mongoose = require('mongoose');
 const app = express();
+// const routes = require('./routes/routes');
 
-mongoose.connect('mongodb://localhost/muggers-db');
+// app.use(routes);//не могу сделать с файла routes.js
+
+
+//удаленная Mongo DB
+// async function start() {
+//     try {
+//         await  mongoose.connect('mongodb+srv://miron:12345@cluster0.zgbxf.mongodb.net/myFirstDatabase?retryWrites=true&w=majority', {
+//             useNewUrlParser: true,
+//             useFindAndModify: false
+//         })
+//         app.listen(PORT, function () {
+//             console.log(`Server is running on the ${PORT} port`);
+//         })
+//     }catch (e) {
+//         console.log('Server Error', e.message)
+//     }
+// }
+//
+//
+// start();
+
+
+mongoose.connect('mongodb://localhost/films-react')
+    .then(() => console.log('MongoDB has started...'))
+    .catch(error => console.log(error));
+
+require('./films.model');
+const Film = mongoose.model('films');
+
+filmsArr.forEach(f => {
+    const film = new Film({
+        id: f.id,
+        name: f.name,
+        genre: f.genre,
+        releaseDate: f.releaseDate,
+        country: f.country,
+        assessment: f.assessment,
+        imdbFilm: f.imdbFilm,
+    })
+    film.save();
+});
+
+// filmsArr.forEach(f => {
+//     new Film(f).save()
+// })
+
+
+
 
 app.use(cors());
 app.use(bodyParser.json());
@@ -25,19 +74,20 @@ app.use(function (req, res, next){
 app.use(express.static(path.join(__dirname, "/../build")));
 
 
+
 const findFilmById = (id) => {
-    const film = films.find(function (film) {
+    const film = data.find(function (film) {
         return film.id === Number(id.params.id)
     });
     return film
 }
 
 exports.apiFilms = function(req, res) {
-    res.json(films)
+    res.json(data)
 }
 
 app.get('/api/films', function (req, res) {
-    res.json(films);
+    res.json(data);
 })
 
 app.get('/api/film/:id', function (req, res) {
@@ -67,7 +117,7 @@ app.put('/api/film/:id', function (req, res) {
 })
 
 app.delete('/api/film/:id', function (req, res) {
-    const result = films.filter(function (item) {
+    const result = data.filter(function (item) {
         return item.id !== Number(req.params.id)
     })
     res.status(200).send(result);
@@ -81,8 +131,6 @@ app.get('*', function (req, res) {
    res.sendFile(path.join(__dirname,'..', "build", "index.html"))
 })
 
-
-app.listen(port, function () {
-    console.log(`Server is running on the ${port} port`);
+app.listen(PORT, function () {
+    console.log(`Server is running on the ${PORT} port`);
 })
-
