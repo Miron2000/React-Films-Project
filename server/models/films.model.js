@@ -3,16 +3,16 @@ const Schema = moongoose.Schema;
 
 
 const FilmSchema = new Schema({
-    id: Number,
+    _id: Number,
     name: String,
     genre: {
         name: String,
-        code: String,
+        code: String
     },
     releaseDate: String,
-    country: String,
+    country: Number,
     assessment: Number,
     imdbFilm: String
-})
+});
 
 moongoose.model('films', FilmSchema);

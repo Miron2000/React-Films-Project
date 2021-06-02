@@ -24,7 +24,7 @@ class FilmsPage extends React.Component {
         this.setState({
             isLoading: true
         })
-        fetch('http://localhost:8000/api/films')
+        fetch('http://localhost:8000/allFilms')
             .then(res => res.json())
             .then(films =>
                 this.setState({
