@@ -38,7 +38,7 @@ app.use('/api', routes);
 app.get('/initdb', function (req, res) {
     filmsArr.forEach(async f => {
         const film = new Film({
-            _id: f.id,
+            // _id: f.id,
             name: f.name,
             genre: f.genre,
             releaseDate: f.releaseDate,
@@ -81,12 +81,13 @@ app.get('/allFilms', function (req, res) {
         if (result) {
             let arrFilms = result.map(function (elem) {
                 const country = elem.country.map( c => c.name)
+
                 let objFilm = {
                     id: elem._id,
                     name: elem.name,
-                    genre: elem.genre.name,
+                    genre: elem.genre ? elem.genre.name : '',
                     releaseDate: elem.releaseDate,
-                    countries: country.toString(),
+                    countries: country.join(','),
                     assessment: elem.assessment,
                     imdbFilm: elem.imdbFilm
                 }
@@ -108,19 +109,23 @@ app.get('/film/:id', async function (req, res) {
 })
 
 
-app.post('/film/post', function(req, res){
+app.post('/film', async function(req, res){
 
     if(!req.body) {
         res.status(400).send({message: 'Content can not be empty!'});
         return;
     }
-    const { _id, name, genre, releaseDate, countries, assessment, imdbFilm} = req.body;
+    const {name, genre, releaseDate, countries, assessment, imdbFilm} = req.body;
+
+    //code
+    // const test = await Country.findOne({code: countries}).exec();//сделать что бы как то country соответсвовало выбраному id
+    const country = await Country.findOne({name: countries}).exec();
+
     const film = new Film({
-        _id: _id,
         name: name,
         genre: genre,
         releaseDate: releaseDate,
-        countries: countries,
+        country: country._id,
         assessment: assessment,
         imdbFilm: imdbFilm,
     })
@@ -136,12 +141,25 @@ app.post('/film/post', function(req, res){
             })
         })
 })
+//має працювати з кодом
 app.put('/film/:id', function (req, res){
     if(!req.body){
         return res
             .status(400)
             .send({message: 'Data to update can not be empty'})
     }
+
+    // const country = await Country.findOne({name: countries}).exec();
+    // console.log(country);
+    //
+    // const film = new Film({
+    //     name: name,
+    //     genre: genre,
+    //     releaseDate: releaseDate,
+    //     country: country._id,
+    //     assessment: assessment,
+    //     imdbFilm: imdbFilm,
+    // })
 
     const id = req.params.id;
     Film.findByIdAndUpdate(id, req.body, {useFindAndModify: false})

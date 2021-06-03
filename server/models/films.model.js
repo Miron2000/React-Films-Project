@@ -3,7 +3,7 @@ const Schema = moongoose.Schema;
 
 
 const FilmSchema = new Schema({
-    _id: Number,
+    // _id: Number,
     name: String,
     genre: {
         name: String,
