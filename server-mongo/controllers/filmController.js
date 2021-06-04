@@ -56,16 +56,12 @@ const filmController = {
     }),
 
     addFilm: expressAsyncHandler(async (req, res) => {
-
         if (!req.body) {
             res.status(400).send({message: 'Content can not be empty!'});
             return;
         }
+
         const {name, genre, releaseDate, countries, assessment, imdbFilm} = req.body;
-
-        //code //сделать что бы как то country соответсвовало выбраному id
-        // const test = await Country.findOne({code: countries}).exec();
-
         const country = await Country.findOne({code: countries}).exec();
 
         const film = new Film({
@@ -99,33 +95,16 @@ const filmController = {
         const {name, genre, releaseDate, countries, assessment, imdbFilm} = req.body;
         const country = await Country.findOne({code: countries}).exec();
 
-        // const film = new Film({
-        //     name: name,
-        //     genre: genre,
-        //     releaseDate: releaseDate,
-        //     country: country._id,
-        //     assessment: assessment,
-        //     imdbFilm: imdbFilm,
-        // })
-
-        // const id = req.params.id;
-        // Film.findByIdAndUpdate(id, {
-        //     name: name,
-        //     genre: genre,
-        //     releaseDate: releaseDate,
-        //     country: country._id,
-        //     assessment: assessment,
-        //     imdbFilm: imdbFilm})
-
         const id = req.params.id;
-        Film.findByIdAndUpdate(id, {
-            name: name ,
-            genre: genre ,
-            releaseDate: releaseDate ,
-            country: country._id ,
+        const update = await Film.findOneAndUpdate({_id: id}, {
+            name: name,
+            genre: genre,
+            releaseDate: releaseDate,
+            country: country._id,
             assessment: assessment,
-            imdbFilm: imdbFilm}, {useFindAndModify: false})
-
+            imdbFilm: imdbFilm
+        }, {new: true})
+            .exec()
             .then(data => {
                 console.log(data, 'data')
                 if (!data) {
@@ -137,6 +116,8 @@ const filmController = {
             .catch(err => {
                 res.status(500).send({message: "Error Update film information"})
             })
+
+        res.send(update);
     }),
 
     deleteFilm: expressAsyncHandler(async (req, res) => {
@@ -158,4 +139,5 @@ const filmController = {
             })
     })
 };
+
 module.exports = filmController;

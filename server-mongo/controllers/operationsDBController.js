@@ -3,7 +3,6 @@ const filmsArr = require('../../src/filmsArr');
 const countriesArr = require('../../src/countriesArr');
 const express = require('express');
 const mongoose = require('mongoose');
-const app = express();
 require('../models/films.model');
 require('../models/countries.model');
 const Film = mongoose.model('films');
