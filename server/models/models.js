@@ -4,16 +4,14 @@ const DataTypes = require('sequelize');
 const Film = sequelize.define('film', {
     id: {type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true},
     name: {type: DataTypes.STRING, unique: true},
-    genre: {type: DataTypes.STRING},
     releaseDate: {type: DataTypes.STRING},
-    country: {type: DataTypes.STRING},
     assessment: {type: DataTypes.DOUBLE},
     imdbFilm: {type: DataTypes.STRING},
 })
 const filmCountry = sequelize.define('film_country', {
     id: {type: DataTypes.INTEGER, primaryKey:true, autoIncrement: true},
-    // countryId: {type: DataTypes.INTEGER, primaryKey:true, autoIncrement: true},
-    // filmId: {type: DataTypes.INTEGER, primaryKey:true, autoIncrement: true}
+    countryId: {type: DataTypes.INTEGER},
+    filmId: {type: DataTypes.INTEGER}
 })
 
 const Country = sequelize.define('country', {
@@ -24,8 +22,8 @@ const Country = sequelize.define('country', {
 
 const filmGenre = sequelize.define('film_genre', {
     id: {type: DataTypes.INTEGER, primaryKey:true, autoIncrement: true},
-    // genreId: {type: DataTypes.INTEGER, primaryKey:true, autoIncrement: true},
-    // filmId: {type: DataTypes.INTEGER, primaryKey:true, autoIncrement: true}
+    genreId: {type: DataTypes.INTEGER},
+    filmId: {type: DataTypes.INTEGER}
 })
 
 const Genre = sequelize.define('genre', {
@@ -34,11 +32,11 @@ const Genre = sequelize.define('genre', {
     code: {type: DataTypes.STRING}
 })
 
-Country.hasMany(Film);//многим странам может принадлежать много фильмов
-Film.belongsToMany(Country, {through: filmCountry});
-
-Genre.hasMany(Film);//многим жанрам может принадлежать много фильмов
-Film.belongsToMany(Genre, {through: filmGenre});
+// Country.hasMany(Film);//многим странам может принадлежать много фильмов
+// Film.belongsToMany(Country, {through: filmCountry});
+//
+// Genre.hasMany(Film);//многим жанрам может принадлежать много фильмов
+// Film.belongsToMany(Genre, {through: filmGenre});
 
 module.exports = {
     Film,

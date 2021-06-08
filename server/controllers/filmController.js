@@ -6,14 +6,18 @@ const app = express();
 class filmController {
 
     async getFilms(req, res, next) {
-        const {countryId, genreId} = req.query;
-        let films;
-        if(!countryId && !genreId) {
-            films = await Film.findAll();
-        }else if(countryId && genreId) {
-            films = await Film.findAll({where:{countryId, genreId}});
-        }
-        return res.json(films);
+        // const {countryId, genreId} = req.query;
+        // let films;
+        // if(!countryId && !genreId) {
+        //     films = await Film.findAll();
+        // }else if(countryId && genreId) {
+        //     films = await Film.findAll({where:{countryId, genreId}});
+        // }
+        // return res.json(films);
+
+        const films = await Film.findAll();
+        console.log(films)
+        res.send(films);
     }
 
     async getFilmById(req, res) {
@@ -23,8 +27,8 @@ class filmController {
 
     async addFilm(req, res, next) {
         try{
-            const {name, genre, releaseDate, country, assessment, imdbFilm, countryId, genreId} = req.body
-            const type = await Film.create({name, genre, releaseDate, country, assessment, imdbFilm, countryId, genreId});
+            const {name, genre, releaseDate, country, assessment, imdbFilm} = req.body
+            const type = await Film.create({name, genre, releaseDate, country, assessment, imdbFilm});
             return res.json({type});
         } catch (err) {
             next(ApiError.badRequest(err.message));
