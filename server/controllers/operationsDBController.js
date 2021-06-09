@@ -22,24 +22,23 @@ class operationsDBController {
             return null;
         }));
 
-        // let setFilmGenreRequests = filmGenreArr.map((entity) => filmGenre.create(entity).catch((err) => {
-        //     console.log(err);
-        //     return null;
-        // }));
+        let setFilmGenreRequests = filmGenreArr.map((entity) => filmGenre.create(entity).catch((err) => {
+            console.log(err);
+            return null;
+        }));
 
-        // let setFilmCountryRequests = filmsArr.map((entity) => filmCountry.create(entity).catch((err) => {
-        //     console.log(err);
-        //     return null;
-        // }));
+        let setFilmCountryRequests = filmCountryArr.map((entity) => filmCountry.create(entity).catch((err) => {
+            console.log(err);
+            return null;
+        }));
 
 
         try {
-            await Promise.all(setCountryRequests).then(res.send('success'));
-            await Promise.all(setGenreRequests).then(res.send('success'))
-            await Promise.all(setFilmRequests).then(res.send('success'))
-
-            // await Promise.all(setFilmGenreRequests).then(console.log('success'))
-            // await Promise.all(setFilmCountryRequests).then(console.log('success'))
+            await Promise.all(setCountryRequests)
+            await Promise.all(setGenreRequests)
+            await Promise.all(setFilmRequests)
+            await Promise.all(setFilmGenreRequests)
+            await Promise.all(setFilmCountryRequests)
 
             res.status(201).json({message: 'Init DB'});
         } catch (err) {

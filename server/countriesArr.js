@@ -1,22 +1,22 @@
 const countriesArr = [
     {
         id: 1,
-        name: 'USA',
+        name_country: 'USA',
         code: 'US'
     },
     {
         id: 2,
-        name: 'France',
+        name_country: 'France',
         code: 'FR'
     },
     {
         id: 3,
-        name: 'Great Britain, USA',
+        name_country: 'Great Britain, USA',
         code: 'GBUS'
     },
     {
         id: 4,
-        name: 'Ukraine',
+        name_country: 'Ukraine',
         code: 'UA'
     }
 ]

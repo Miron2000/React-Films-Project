@@ -1,53 +1,53 @@
 const filmGenreArr = [
     {
         id: 1,
-        filmId: 3,
-        genreId: 1
+        film_id: 3,
+        genre_id: 1
     },
     {
         id: 2,
-        filmId: 5,
-        genreId: 2
+        film_id: 5,
+        genre_id: 2
     },
     {
         id: 3,
-        filmId: 1,
-        genreId: 3
+        film_id: 1,
+        genre_id: 3
     },
     {
         id: 4,
-        filmId: 2,
-        genreId: 1
+        film_id: 2,
+        genre_id: 1
     },
     {
         id: 5,
-        filmId: 4,
-        genreId: 3
+        film_id: 4,
+        genre_id: 3
     },
     {
         id: 6,
-        filmId: 6,
-        genreId: 4
+        film_id: 6,
+        genre_id: 4
     },
     {
         id: 7,
-        filmId: 9,
-        genreId: 1
+        film_id: 9,
+        genre_id: 1
     },
     {
         id: 8,
-        filmId: 7,
-        genreId: 5
+        film_id: 7,
+        genre_id: 5
     },
     {
         id: 9,
-        filmId: 8,
-        genreId: 2
+        film_id: 8,
+        genre_id: 2
     },
     {
         id: 10,
-        filmId: 10,
-        genreId: 6
+        film_id: 10,
+        genre_id: 6
     },
 ]
 

@@ -3,32 +3,32 @@ const DataTypes = require('sequelize');
 
 const Film = sequelize.define('film', {
     id: {type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true},
-    name: {type: DataTypes.STRING, unique: true},
+    name: {type: DataTypes.STRING},
     releaseDate: {type: DataTypes.STRING},
     assessment: {type: DataTypes.DOUBLE},
     imdbFilm: {type: DataTypes.STRING},
 })
 const filmCountry = sequelize.define('film_country', {
     id: {type: DataTypes.INTEGER, primaryKey:true, autoIncrement: true},
-    countryId: {type: DataTypes.INTEGER},
-    filmId: {type: DataTypes.INTEGER}
+    country_id: {type: DataTypes.INTEGER},
+    film_id: {type: DataTypes.INTEGER}
 })
 
 const Country = sequelize.define('country', {
     id: {type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true},
-    name: {type: DataTypes.STRING, unique: true},
+    name_country: {type: DataTypes.STRING, unique: true},
     code: {type: DataTypes.STRING},
 })
 
 const filmGenre = sequelize.define('film_genre', {
     id: {type: DataTypes.INTEGER, primaryKey:true, autoIncrement: true},
-    genreId: {type: DataTypes.INTEGER},
-    filmId: {type: DataTypes.INTEGER}
+    genre_id: {type: DataTypes.INTEGER},
+    film_id: {type: DataTypes.INTEGER}
 })
 
 const Genre = sequelize.define('genre', {
     id: {type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true},
-    name: {type: DataTypes.STRING, unique: true},
+    name_genre: {type: DataTypes.STRING, unique: true},
     code: {type: DataTypes.STRING}
 })
 

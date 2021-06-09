@@ -1,32 +1,32 @@
 const genreArr = [
     {
         id: 1,
-        name: 'Comedy',
+        name_genre: 'Comedy',
         code: 'com'
     },
     {
         id: 2,
-        name: 'Drama',
+        name_genre: 'Drama',
         code: 'dr'
     },
     {
         id: 3,
-        name: 'Drama, crime',
+        name_genre: 'Drama, crime',
         code: 'drcr'
     },
     {
         id: 4,
-        name: 'Horror',
+        name_genre: 'Horror',
         code: 'hor'
     },
     {
         id: 5,
-        name: 'Adventures, Fiction',
+        name_genre: 'Adventures, Fiction',
         code: 'adfi'
     },
     {
         id: 6,
-        name: 'Fiction, Thriller',
+        name_genre: 'Fiction, Thriller',
         code: 'fith'
     }
 ]
