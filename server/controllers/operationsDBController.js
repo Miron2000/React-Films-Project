@@ -1,8 +1,6 @@
 const filmsArr = require('../filmsArr');
 const countriesArr = require('../countriesArr');
 const genreArr = require('../genreArr');
-const filmGenreArr = require('../filmGenreArr');
-const filmCountryArr = require('../filmCountryArr');
 const sequelize = require('../db');
 const {Film, Country, Genre, filmGenre, filmCountry} = require('../models/models');
 
@@ -17,28 +15,18 @@ class operationsDBController {
             console.log(err);
             return null;
         }));
-        let setFilmRequests = filmsArr.map((entity) => Film.create(entity).catch((err) => {
-            console.log(err);
-            return null;
-        }));
-
-        let setFilmGenreRequests = filmGenreArr.map((entity) => filmGenre.create(entity).catch((err) => {
-            console.log(err);
-            return null;
-        }));
-
-        let setFilmCountryRequests = filmCountryArr.map((entity) => filmCountry.create(entity).catch((err) => {
-            console.log(err);
-            return null;
-        }));
-
+        // let setFilmRequests = filmsArr.map((entity) => Film.create(entity).then((result) => {
+        //     console.log(result);
+        // }).catch((err) => {
+        //     console.log(err);
+        //     return null;
+        // }));
 
         try {
             await Promise.all(setCountryRequests)
             await Promise.all(setGenreRequests)
-            await Promise.all(setFilmRequests)
-            await Promise.all(setFilmGenreRequests)
-            await Promise.all(setFilmCountryRequests)
+            // await Promise.all(setFilmRequests)
+
 
             res.status(201).json({message: 'Init DB'});
         } catch (err) {
@@ -62,6 +50,17 @@ class operationsDBController {
         }).catch((err) => {
             console.log(err);
         })
+
+        // await filmGenre.destroy({truncate: true, cascade: true}).then((result) => {
+        //     console.log(result);
+        // }).catch((err) => {
+        //     console.log(err);
+        // })
+        // await filmCountry.destroy({truncate: true, cascade: true}).then((result) => {
+        //     console.log(result);
+        // }).catch((err) => {
+        //     console.log(err);
+        // })
 
         res.send('Clear collections')
     }

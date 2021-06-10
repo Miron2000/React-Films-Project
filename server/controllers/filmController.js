@@ -1,31 +1,38 @@
 const {Film, filmCountry, filmGenre} = require('../models/models');
 const ApiError = require('../error/ApiError');
 const sequelize = require('../db');
-const {QueryTypes} = require('sequelize');
 const express = require('express');
 const app = express();
 
 class filmController {
 
     async getFilms(req, res, next) {
-        // const {countryId, genreId} = req.query;
-        // let films;
-        // if(!countryId && !genreId) {
-        //     films = await Film.findAll();
-        // }else if(countryId && genreId) {
-        //     films = await Film.findAll({where:{countryId, genreId}});
-        // }
-        // return res.json(films);
-
         const films = await Film.findAll();
-        // const test = await sequelize.query("SELECT * from films f " +
-        //     "inner join film_countries as FC on FC.film_id = f.id " +
-        //     "inner join countries on countries.id = fc.country_id " +
-        //     "inner join film_genres as FG on FG.film_id = f.id " +
-        //     "inner join genres on genres.id = fg.genre_id");
-        // console.log(test, 'test');
+        const filmsId = films.map(f => f.id);
+        const countries = await sequelize.query(`SELECT name_country, film_id from film_countries fc left join countries c on c.id = fc.country_id where film_id IN (${filmsId})`);
+        const genres = await sequelize.query(`SELECT name_genre, film_id from film_genres fg left join genres g on g.id = fg.genre_id where film_id IN (${filmsId})`);
+
+        let arrFilm = films.map(function (film) {
+            const country = countries[0].filter(c => c.film_id === film.id);
+            const genre = genres[0].filter(g => g.film_id === film.id);
+
+            const countryName = country.map(country => country.name_country);
+            const genreName = genre.map(genre => genre.name_genre);
+
+            const objFilm = {
+                id: film.id,
+                name: film.name,
+                genre: genreName.toString(),
+                releaseDate: film.releaseDate,
+                countries: countryName.toString(),
+                assessment: film.assessment,
+                imdbFilm: film.imdbFilm
+            }
+            return objFilm
+        })
+
         try {
-            res.send(films);
+            res.send(arrFilm);
         } catch (err) {
             next(ApiError.badRequest(err.message))
         }
@@ -34,8 +41,23 @@ class filmController {
 
     async getFilmById(req, res, next) {
         const film = await Film.findByPk(req.params.id);
+        const countries = await sequelize.query(`SELECT name_country from film_countries fc left join countries c on c.id = fc.country_id where film_id = ${film.id} `);
+        const genres = await sequelize.query(`SELECT name_genre from film_genres fg left join genres g on g.id = fg.genre_id where film_id = ${film.id} `);
+        const countryName = countries[0].map(c => c.name_country);
+        const genreName = genres[0].map(g => g.name_genre);
+
+        const objFilm = {
+            id: film.id,
+            name: film.name,
+            genre: genreName ? genreName.toString() : '',
+            releaseDate: film.releaseDate,
+            country: countryName ? countryName.toString() : '',
+            assessment: film.assessment,
+            imdbFilm: film.imdbFilm
+        }
+
         try {
-            res.send(film);
+            res.send(objFilm);
         } catch (err) {
             next(ApiError.badRequest(err.message));
         }
@@ -43,29 +65,18 @@ class filmController {
 
     async addFilm(req, res, next) {
         try {
-
-            const {name, releaseDate, assessment, imdbFilm, genre_id, country_id, film_id} = req.body
-            console.log(name, 'name')
-            console.log(releaseDate, 'releaseDate')
-            console.log(assessment, 'assessment')
-            console.log(imdbFilm, 'imdbFilm')
-            console.log(genre_id, 'genre_id')
-            console.log(country_id, 'country_id')
-            console.log(film_id, 'film_id')
+            const {name, releaseDate, assessment, imdbFilm, genre_id, country_id} = req.body
             const typeFilm = await Film.create({name, releaseDate, assessment, imdbFilm});
-            const typeFilmGenre = await filmGenre.create({genre_id, film_id});
-            const typeFilmCountry = await filmCountry.create({country_id, film_id});
+            const typeFilmGenre = await filmGenre.create({genre_id, film_id: typeFilm.id});
+            const typeFilmCountry = await filmCountry.create({country_id, film_id: typeFilm.id});
 
-            // const newFilm = await sequelize.query(`INSERT INTO films ()`)
-            // const test = await sequelize.query("SELECT * from films f LEFT join film_countries as FC on FC.film_id = f.id left join countries on countries.id = fc.country_id");
             return res.json({typeFilm, typeFilmGenre, typeFilmCountry});
-            // return res.json({typeFilm});
         } catch (err) {
-            // console.log(err)
             next(ApiError.badRequest(err.message));
         }
 
     }
+
 
     async updateFilm(req, res) {
         if (!req.body) {
@@ -74,31 +85,63 @@ class filmController {
                 .send({message: 'Data to update can not be empty'})
         }
         const id = req.params.id;
-        const update = await Film.update(req.body, {
+        await sequelize.query(`DELETE FROM film_countries WHERE film_id = ${id}`);
+        await sequelize.query(`DELETE FROM film_genres WHERE film_id = ${id}`);
+
+        const {name, releaseDate, assessment, imdbFilm, genre_id, country_id} = req.body
+        const typeFilmGenre = await filmGenre.create({genre_id, film_id:id});
+        const typeFilmCountry = await filmCountry.create({country_id, film_id:id});
+        // const updateGenre = await filmGenre.update({})
+
+        const updateFilm = await Film.update({
+            name: name,
+            // genre: typeFilmGenre,
+            releaseDate: releaseDate,
+            // country: typeFilmCountry,
+            assessment: assessment,
+            imdbFilm: imdbFilm
+        }, {
             where: {id: id}
         }).then(num => {
             console.log(num, 'NUM')
-            // if (num === 1) {
-            //     res.send({
-            //         message: "Film was updated successfully."
-            //     });
-            // } else {
-            //     res.send({
-            //         message: `Cannot update Film with id=${id}. Maybe Film was not found or req.body is empty!`
-            //     });
-            // }
+            res.send({
+                message: "Film was updated successfully."
+            });
         })
-            // .catch(err => {
-            //     res.status(500).send({
-            //         message: `Error updating Film with id= ${id}`
-            //     });
-            // })
+            .catch(err => {
+                res.status(500).send({
+                    message: `Error updating Film with id= ${id}`
+                });
+            })
 
-        res.send(update);
+        // const typeFilmGenre = await filmGenre.create({genre_id, film_id:id});
+        // const typeFilmCountry = await filmCountry.create({country_id, film_id:id});
+
+        // const updateFilm = await sequelize.query(`INSERT INTO films VALUES(${update})`);
+        res.json(updateFilm);
+        // res.send(update);
     }
 
     async deleteFilm(req, res) {
+        try {
+            const id = req.params.id;
+            await sequelize.query(`DELETE FROM film_countries WHERE film_id = ${id}`);
+            await sequelize.query(`DELETE FROM film_genres WHERE film_id = ${id}`);
 
+            const test = await sequelize.query(`DELETE FROM films WHERE id = ${id}`).then(data => {
+                if (!data) {
+                    res.status(404).send({message: `Cannot Delete film with ${id}. Maybe film id is wrong!`})
+                } else {
+                    res.send({
+                        message: "Film was deleted successfully!"
+                    })
+                }
+            })
+        } catch (err) {
+            res.status(500).send({
+                message: `Could not delete film with ${id}`
+            })
+        }
     }
 }
 
