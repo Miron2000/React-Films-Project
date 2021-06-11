@@ -15,6 +15,7 @@ class operationsDBController {
             console.log(err);
             return null;
         }));
+
         // let setFilmRequests = filmsArr.map((entity) => Film.create(entity).then((result) => {
         //     console.log(result);
         // }).catch((err) => {
@@ -31,6 +32,38 @@ class operationsDBController {
             res.status(201).json({message: 'Init DB'});
         } catch (err) {
             res.status(500).json({message: err.message});
+        }
+    }
+    async test(req, res) {
+        const countriesId = await sequelize.query(`SELECT id from countries`);
+        const genresId = await sequelize.query(`SELECT id from genres`);
+
+
+        const randomIdCountry = countriesId[0].map((element) => {
+            console.log(parseInt(Object.values(element)), 'element')
+            return element;
+         // return element[Math.floor(Math.random() * countriesId.length)];
+        });
+        const randomIdGenre =  genresId[0].map((element) => {
+            const number = parseInt(Object.values(element));
+            const arr =[];
+           arr.push(number);
+            console.log(arr);
+            // return arr[Math.floor(Math.random() * arr.length)];
+        })
+        // console.log(randomIdCountry, 'randomIdCountry');
+        // console.log(randomIdGenre, 'randomIdCountry');
+        // let setFilmRequests = filmsArr.map((entity) => Film.create(entity).then((result) => {
+        //     console.log(result);
+        // }).catch((err) => {
+        //     console.log(err);
+        //     return null;
+        // }));
+        try {
+            res.json(genresId);
+            // await Promise.all(setFilmRequests)
+        }catch (err) {
+            console.log(err)
         }
     }
 

@@ -94,12 +94,12 @@ class filmController {
         // const updateGenre = await filmGenre.update({})
 
         const updateFilm = await Film.update({
-            name: name,
-            // genre: typeFilmGenre,
-            releaseDate: releaseDate,
-            // country: typeFilmCountry,
-            assessment: assessment,
-            imdbFilm: imdbFilm
+            name: name ? name : 'Name not specified',
+            genre: genre_id,
+            releaseDate: releaseDate ? releaseDate : "Release date not specified",
+            country: country_id,
+            assessment: assessment ? assessment : 0.0,
+            imdbFilm: imdbFilm ? imdbFilm : "IMDB not specified"
         }, {
             where: {id: id}
         }).then(num => {
@@ -114,12 +114,7 @@ class filmController {
                 });
             })
 
-        // const typeFilmGenre = await filmGenre.create({genre_id, film_id:id});
-        // const typeFilmCountry = await filmCountry.create({country_id, film_id:id});
-
-        // const updateFilm = await sequelize.query(`INSERT INTO films VALUES(${update})`);
         res.json(updateFilm);
-        // res.send(update);
     }
 
     async deleteFilm(req, res) {
@@ -128,7 +123,7 @@ class filmController {
             await sequelize.query(`DELETE FROM film_countries WHERE film_id = ${id}`);
             await sequelize.query(`DELETE FROM film_genres WHERE film_id = ${id}`);
 
-            const test = await sequelize.query(`DELETE FROM films WHERE id = ${id}`).then(data => {
+            const deleteFilm = await sequelize.query(`DELETE FROM films WHERE id = ${id}`).then(data => {
                 if (!data) {
                     res.status(404).send({message: `Cannot Delete film with ${id}. Maybe film id is wrong!`})
                 } else {
