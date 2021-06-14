@@ -88,16 +88,15 @@ class filmController {
         await sequelize.query(`DELETE FROM film_countries WHERE film_id = ${id}`);
         await sequelize.query(`DELETE FROM film_genres WHERE film_id = ${id}`);
 
-        const {name, releaseDate, assessment, imdbFilm, genre_id, country_id} = req.body
-        const typeFilmGenre = await filmGenre.create({genre_id, film_id:id});
-        const typeFilmCountry = await filmCountry.create({country_id, film_id:id});
-        // const updateGenre = await filmGenre.update({})
+        const {name, releaseDate, assessment, imdbFilm, genreId, countryId} = req.body;
+        const typeFilmGenre = await filmGenre.create({genre_id: genreId, film_id:id});
+        const typeFilmCountry = await filmCountry.create({country_id: countryId, film_id:id});
 
         const updateFilm = await Film.update({
             name: name ? name : 'Name not specified',
-            genre: genre_id,
+            genre: genreId ? genreId : null,
             releaseDate: releaseDate ? releaseDate : "Release date not specified",
-            country: country_id,
+            country: countryId ? countryId : null,
             assessment: assessment ? assessment : 0.0,
             imdbFilm: imdbFilm ? imdbFilm : "IMDB not specified"
         }, {
