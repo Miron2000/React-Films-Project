@@ -4,11 +4,12 @@ import FilmsPage from "./containers/FilmsPage";
 import Login from "./containers/Login";
 import Footer from "./components/Common/Footer";
 import './index.css';
-import {BrowserRouter, Route} from "react-router-dom";
+import {BrowserRouter, Route, Switch} from "react-router-dom";
 import Tooggle from "./components/Common/Tooggle";
 import {useDispatch, useSelector} from "react-redux";
 import {setDarkMode as setDarkModeAction} from "./store/actions/actions";
 import {Theme} from "./store/reducers/reducers";
+import FilmById from "./components/Table/FilmById";
 
 const App = () => {
     const isDarkMode = useSelector((state) => state.Theme.darkTheme);
@@ -28,6 +29,7 @@ const App = () => {
                         <Route exect path='/films' component={FilmsPage}/>
                         <Route path='/login' component={Login}/>
                     </section>
+                    <Route path='/film/:id' component={FilmById}/>
                     <Footer/>
                 </div>
             </div>

@@ -1,0 +1,36 @@
+.section-table {
+    width: 100%;
+    margin: auto;
+    max-width: 1170px;
+    padding: 0 15px;
+}
+
+.indentation {
+    margin-top: 5rem;
+    margin-bottom: 5rem;
+}
+.table_by_id {
+    width: 100%;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+    background-color: #ffffff;
+    /*border-collapse: collapse;*/
+}
+.table_by_id th, .table_by_id td {
+    text-align: center;
+    padding: 10px;
+    font-family: "Noto Sans CJK SC";
+    color: black;
+}
+.table_by_id tr:nth-child(even) {
+    background: aliceblue;
+}
+
+.table_by_id tr {
+    background-color: blanchedalmond;
+    transition: all .3s;
+}
+
+.table_by_id tr:hover {
+    background-color: #B1D4E6;
+    cursor: pointer;
+}

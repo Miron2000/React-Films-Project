@@ -81,6 +81,10 @@
     font-family: "Noto Sans CJK SC";
     color: black;
 }
+.link__filmId {
+    text-decoration: none;
+    color: #000;
+}
 
 .table th {
     background-color: #B1D4E6;

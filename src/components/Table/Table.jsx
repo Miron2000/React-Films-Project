@@ -1,14 +1,18 @@
 import React, {useEffect, useState} from 'react';
 import './Table.css';
+import {Link} from "react-router-dom";
 import FilteredInputs from "./FilteredInputs";
 import sortTable from "../../TableOperations/sortTable";
 import {binarySearch, drawTableBinarySearch} from "../../TableOperations/binarySearch";
 import {useSelector, useDispatch} from "react-redux";
 import {Films} from "../../store/reducers/reducers";
 import {setSearchValue, setSearchValueRating} from "../../store/actions/actions";
+import FilmsPage from "../../containers/FilmsPage";
+import FilmById from "./FilmById";
 
 
 function Table(props) {
+
 
     const searchQuery = useSelector((state) => state.Films.searchQuery);
     const searchQueryRating = useSelector((state) => state.Films.searchQueryRating);
@@ -29,7 +33,8 @@ function Table(props) {
 
     const createTableColumns = (item) => {
         return props.columns.map((i) => {
-            return <td key={i.acessor}>{item[i.acessor]}</td>;
+            let linkItem = <Link to={`film/${item.id}`} className='link__filmId'>{item[i.acessor]}</Link>
+            return <td key={i.acessor}>{linkItem}</td>;
         })
     }
 
