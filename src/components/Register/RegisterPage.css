@@ -31,7 +31,7 @@
     cursor: pointer;
 }
 
-.box input[type = 'email']:focus, .box input[type = 'password']:focus{
+.box input[type = 'email']:focus, .box input[type = 'password']:focus {
     width: 280px;
     border-color: #9900FF;
 }

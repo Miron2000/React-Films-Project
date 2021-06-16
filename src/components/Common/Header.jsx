@@ -12,7 +12,8 @@ const Header = () => {
                 <div className="header__item hover"><NavLink to="/films">Table</NavLink></div>
             </div>
             <div className="header__section">
-                <div className="header__item hover"><NavLink to="/login">Login</NavLink></div>
+                <div className="header__item hover"><NavLink to="/login">Sign In</NavLink></div>
+                <div className="header__item hover"><NavLink to="/register">Sign Up</NavLink></div>
             </div>
 
             <HamburgerMenu/>

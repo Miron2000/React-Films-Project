@@ -2,6 +2,7 @@ import React, {useEffect, useState} from 'react';
 import Header from "./components/Common/Header";
 import FilmsPage from "./containers/FilmsPage";
 import Login from "./containers/Login";
+import Register from "./containers/Register";
 import Footer from "./components/Common/Footer";
 import './index.css';
 import {BrowserRouter, Route, Switch} from "react-router-dom";
@@ -28,6 +29,7 @@ const App = () => {
                     <section className="section">
                         <Route exect path='/films' component={FilmsPage}/>
                         <Route path='/login' component={Login}/>
+                        <Route path='/register' component={Register}/>
                     </section>
                     <Route path='/film/:id' component={FilmById}/>
                     <Footer/>

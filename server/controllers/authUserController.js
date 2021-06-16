@@ -1,15 +1,19 @@
 const {User} = require('../models/models');
 const sequelize = require('../db');
 const express = require('express');
-const passport = require('passport');
-// const GoogleStrategy = require('passport-google-oauth20').Strategy;
 const bcrypt = require('bcrypt');
+const passport = require('passport');
 const jwt = require('jsonwebtoken');
 
+// const GoogleStrategy = require('passport-google-oauth20').Strategy;
 
 class authUserController {
 
-    async auth_signup_post(req, res, next) {
+    async register_post(req, res, next) {
+        // if (req.isAuthenticated()) {
+        //     return res.redirect('/')
+        // }
+        // next();
         try {
             const {email, password} = req.body;
             const candidate = await User.findOne({where: {email: email}});
@@ -19,34 +23,46 @@ class authUserController {
             const salt = await bcrypt.genSalt();
             const hashedPassword = await bcrypt.hash(password, salt);
 
-            const user = new User({email, password: hashedPassword});
+            const user = await User.create({email, password: hashedPassword}).catch((err) => {
+                console.log(err);
+                return null;
+            })
 
-            // await user.create().catch((err) => {
-            //     console.log(err);
-            //     return null;
-            // })
+            res.redirect('/login');
+            // res.status(201).json({
+            //     email: user.email
+            // });
 
-            await user.save();
-            let JWT_SECRET = 'miron';
-
-            const token = jwt.sign({id: user._id}, JWT_SECRET);
-
-            res.cookie('jwt', token, {
-                httpOnly: true,
-                maxAge: 1000 * 60 * 60 * 24 * 365, // 1 year in milliseconds // or null possible
-                sameSite: 'none',
-                secure: true,
-            });
-
-            res.status(201).json({
-                email: user.email
-            });
 
         } catch (err) {
-            res.status(500).json({message: err.message});
+            // res.status(500).json({message: err.message});
+            res.redirect('/register')
         }
     }
 
+    login_post(req, res, next) {
+        const {email, password} = req.body;
+        res.redirect('/films');
+    }
+
+    async logout_delete(req, res, next) {
+        req.logOut();
+        res.redirect('/login');
+    }
+
+    // async register_get(req, res, next) {
+    //     if (req.isAuthenticated()) {
+    //         return res.redirect('/')
+    //     }
+    //     res.redirect('/register')//на сторінку з формою реєстрації
+    // }
+    //
+    // async login_get(req, res, next) {
+    //     if (req.isAuthenticated()) {
+    //         return res.redirect('/')
+    //     }
+    //     res.redirect('/login')//на сторінку з формой логіну
+    // }
 }
 
 module.exports = new authUserController();
