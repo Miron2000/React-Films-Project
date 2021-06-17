@@ -3,8 +3,6 @@ const sequelize = require('../db');
 const express = require('express');
 const bcrypt = require('bcrypt');
 const passport = require('passport');
-const jwt = require('jsonwebtoken');
-
 // const GoogleStrategy = require('passport-google-oauth20').Strategy;
 
 class authUserController {
@@ -28,6 +26,11 @@ class authUserController {
                 return null;
             })
 
+            // res.send({
+            //     id: user.id,
+            //     email: user.email,
+            //     password: user.password
+            // });
             res.redirect('/login');
             // res.status(201).json({
             //     email: user.email
@@ -40,12 +43,21 @@ class authUserController {
         }
     }
 
-    login_post(req, res, next) {
-        const {email, password} = req.body;
-        console.log(res, 'response');
-        console.log(res.user, 'RES.USER')
-        res.redirect('/films');
+    async login_post(req, res, next) {
+        const { email, password } = req.body;
+        const user = await User.findOne({ where: { email } });
+        if(user &&  bcrypt.compareSync(password, user.password)){
+            res.redirect('/films');
+           return res.send({isLogged: true})
+        }
+        res.status(401).send({ message: "Invalid email or password" });
+        // console.log(res.json({user: req.user}))
     }
+
+    // logout(req, res, next) {
+    //     req.logout();
+    //     res.redirect('/login');
+    // }
 
 }
 

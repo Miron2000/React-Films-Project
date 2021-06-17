@@ -8,8 +8,6 @@ authRouter.post('/login',  passport.authenticate('local', {
     failureRedirect: '/login',
     failureFlash: true
 }), authUserController.login_post);
-// authRouter.get('/logout', authUserController.logout_delete);
-// authRouter.get('/register', authUserController.register_get);
-// authRouter.get('/login', authUserController.login_get);
+// authRouter.get('/logout', authUserController.logout);
 
 module.exports = authRouter;

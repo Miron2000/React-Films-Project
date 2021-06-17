@@ -11,10 +11,10 @@ function LogoutPage(props) {
     //         .then(() => setStatus('Delete successful'));
     //
     // }, []);
-    async function logout() {
-        await axios.delete('http://localhost:3000/logout');
-        setStatus('Delete successful');
-    }
+    // async function logout() {
+    //     await axios.delete('http://localhost:3000/logout');
+    //     setStatus('Delete successful');
+    // }
 
     return (
         <form className='box indentation' method='POST' action='/logout'>

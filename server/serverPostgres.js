@@ -14,7 +14,6 @@ const passport = require('passport');
 const session = require('express-session');
 const flash = require('express-flash');
 const initializePassport = require('./passport-config');
-const checkAuthenticated = require('./middleware/checkAuthenticated');
 const methodOverride = require('method-override');
 const morgan = require('morgan');
 const PORT = process.env.PORT || 5000;

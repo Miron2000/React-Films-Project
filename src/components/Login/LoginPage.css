@@ -53,3 +53,7 @@
 .box input[type = 'submit']:hover {
     background-color: #9900FF;
 }
+.invalid-feedback {
+    display: block;
+    color:red;
+}
