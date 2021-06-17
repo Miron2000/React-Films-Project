@@ -9,6 +9,7 @@ import {Films} from "../../store/reducers/reducers";
 import {setSearchValue, setSearchValueRating} from "../../store/actions/actions";
 import FilmsPage from "../../containers/FilmsPage";
 import FilmById from "./FilmById";
+import LogoutPage from "../Logout/LogoutPage";
 
 
 function Table(props) {
@@ -74,6 +75,7 @@ function Table(props) {
 
     return (
         <>
+
             <FilteredInputs searchQuery={searchQuery} setSearchQuery={setSearchQuery}
                             searchQueryRating={searchQueryRating} setSearchQueryRating={setSearchQueryRating}
                             sortArr={sortArr}/>

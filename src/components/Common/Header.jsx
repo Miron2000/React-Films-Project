@@ -14,6 +14,7 @@ const Header = () => {
             <div className="header__section">
                 <div className="header__item hover"><NavLink to="/login">Sign In</NavLink></div>
                 <div className="header__item hover"><NavLink to="/register">Sign Up</NavLink></div>
+                <div className="header__item hover"><NavLink to="/logout">Logout</NavLink></div>
             </div>
 
             <HamburgerMenu/>

@@ -42,27 +42,11 @@ class authUserController {
 
     login_post(req, res, next) {
         const {email, password} = req.body;
+        console.log(res, 'response');
+        console.log(res.user, 'RES.USER')
         res.redirect('/films');
     }
 
-    async logout_delete(req, res, next) {
-        req.logOut();
-        res.redirect('/login');
-    }
-
-    // async register_get(req, res, next) {
-    //     if (req.isAuthenticated()) {
-    //         return res.redirect('/')
-    //     }
-    //     res.redirect('/register')//на сторінку з формою реєстрації
-    // }
-    //
-    // async login_get(req, res, next) {
-    //     if (req.isAuthenticated()) {
-    //         return res.redirect('/')
-    //     }
-    //     res.redirect('/login')//на сторінку з формой логіну
-    // }
 }
 
 module.exports = new authUserController();

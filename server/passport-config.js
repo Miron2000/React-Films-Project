@@ -7,7 +7,6 @@ const {User} = require('./models/models');
         const user = await getUserByEmail(email);
         console.log(email, 'email')
         console.log(password, 'password')
-        // const user = await User.findOne({where: {email: email}});
         if (user == null) {
             return done(null, false, {message: 'No user with that email'});
         }

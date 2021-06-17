@@ -8,21 +8,21 @@ function LoginPage(props) {
     const [loginUserEmail, setLoginUserEmail] = useState('');
     const [loginUserPassword, setLoginUserPassword] = useState('');
 
-    const registration = () => {
-        axios({
-            method: 'POST',
-            data: {
-                email: loginUserEmail,
-                password: loginUserPassword
-            },
-            withCredentials: true,
-            url: `http://localhost:3000/login`
-        })
-            .then((res) => console.log(res))
-    };
+    // const login = () => {
+    //     axios({
+    //         method: 'POST',
+    //         data: {
+    //             email: loginUserEmail,
+    //             password: loginUserPassword
+    //         },
+    //         withCredentials: true,
+    //         url: `http://localhost:3000/login`
+    //     })
+    //         .then((res) => console.log(res))
+    // };
 
     return (
-        <form class='box indentation' method='post' action='/login'>
+        <form className='box indentation' method='post' action='/login'>
             <h1>Sign In</h1>
             <div>
                 <label htmlFor='email'>Email</label>

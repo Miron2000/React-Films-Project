@@ -21,7 +21,7 @@ function RegisterPage(props) {
     };
 
     return (
-        <form class='box indentation' method='post' action='/register'>
+        <form className='box indentation' method='post' action='/register'>
             <h1>Sign Up</h1>
             <div>
                 <label for='email'>Email</label>
@@ -39,5 +39,4 @@ function RegisterPage(props) {
     );
 }
 
-// onClick={() => registration(email, password)}
 export default RegisterPage;
