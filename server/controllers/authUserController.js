@@ -48,7 +48,6 @@ class authUserController {
         const user = await User.findOne({ where: { email } });
         if(user &&  bcrypt.compareSync(password, user.password)){
             res.redirect('/films');
-           return res.send({isLogged: true})
         }
         res.status(401).send({ message: "Invalid email or password" });
         // console.log(res.json({user: req.user}))

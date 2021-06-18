@@ -16,6 +16,7 @@ const flash = require('express-flash');
 const initializePassport = require('./passport-config');
 const methodOverride = require('method-override');
 const morgan = require('morgan');
+const fs = require('fs');
 const PORT = process.env.PORT || 5000;
 
 const app = express();
@@ -72,9 +73,25 @@ app.get('/logout', function(req, res){
 app.get('/film/:id', function (req, res) {
     res.redirect('/');
 })
-//checkAuthenticated не работает, перезагружаю страницу, не переходит на форму с регистрацией
+
 app.get('*', function (req, res) {
-    res.sendFile(path.join(__dirname, '..', "build", "index.html"))
+    // res.sendFile(path.join(__dirname, '..', "build", "index.html"));
+
+    const indexFile = path.resolve('../build/index.html');
+    fs.readFile(indexFile, 'utf8', (err, data) => {
+        if (err) {
+            return res.status(500).send(err.message);
+        }
+
+        let user = JSON.stringify({userId: null});
+        if(req.session.passport){
+            user = JSON.stringify({userId: req.session.passport.user});
+        }
+
+        return res.send(
+            data.replace('<div id="root"></div>', `<div id="root"></div> <script>window.USER_DATA=JSON.parse('${user}')</script>`)
+        );
+    });
 })
 
 start();

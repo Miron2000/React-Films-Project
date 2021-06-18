@@ -12,19 +12,6 @@ function RegisterPage(props) {
     const [formValid, setFormValid] = useState(false);
 
 
-    const registration = () => {
-        axios({
-            method: 'POST',
-            data: {
-                email: email,
-                password: password
-            },
-            withCredentials: true,
-            url: `http://localhost:3000/register`
-        })
-            .then((res) => console.log(res))
-    };
-
     useEffect(() => {
         if(emailError || passwordError) {
             setFormValid(false);
@@ -45,8 +32,8 @@ function RegisterPage(props) {
 
     const passwordHandler = (e) => {
         setPassword(e.target.value);
-        if(e.target.value.length < 3 || e.target.value.length > 8){
-            setPasswordError('Password must be more than three and less than 8');
+        if(e.target.value.length < 8 || e.target.value.length > 16){
+            setPasswordError('Password must be more than 8 and less than 16');
             if(!e.target.value) {
                 setPasswordError('Password should not be empty');
             }
@@ -81,7 +68,7 @@ function RegisterPage(props) {
                        name='password' placeholder='Password' onBlur={blurHandler}/>
             </div>
 
-            <input disabled={!formValid} type='submit' name='' value='Register' onClick={() => registration()}/>
+            <input disabled={!formValid} type='submit' name='' value='Register'/>
         </form>
     );
 }
