@@ -52,7 +52,6 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 
-
 app.use(express.static(path.join(__dirname, "/../build")));
 
 app.use('/api', filmRouter);
@@ -65,7 +64,7 @@ app.use(methodOverride('_method'))
 //Обработка ошибок
 app.use(errorHandler);
 
-app.get('/logout', function(req, res){
+app.get('/logout', function (req, res) {
     req.logout();
     res.redirect('/login');
 });
@@ -75,8 +74,6 @@ app.get('/film/:id', function (req, res) {
 })
 
 app.get('*', function (req, res) {
-    // res.sendFile(path.join(__dirname, '..', "build", "index.html"));
-
     const indexFile = path.resolve('../build/index.html');
     fs.readFile(indexFile, 'utf8', (err, data) => {
         if (err) {
@@ -84,7 +81,7 @@ app.get('*', function (req, res) {
         }
 
         let user = JSON.stringify({userId: null});
-        if(req.session.passport){
+        if (req.session.passport) {
             user = JSON.stringify({userId: req.session.passport.user});
         }
 

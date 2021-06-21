@@ -7,9 +7,6 @@ import {binarySearch, drawTableBinarySearch} from "../../TableOperations/binaryS
 import {useSelector, useDispatch} from "react-redux";
 import {Films, User} from "../../store/reducers/reducers";
 import {setSearchValue, setSearchValueRating} from "../../store/actions/actions";
-import FilmsPage from "../../containers/FilmsPage";
-import FilmById from "./FilmById";
-import LogoutPage from "../Logout/LogoutPage";
 
 
 function Table(props) {
@@ -17,7 +14,6 @@ function Table(props) {
     const user = useSelector((state) => state.User.user);
     const searchQuery = useSelector((state) => state.Films.searchQuery);
     const searchQueryRating = useSelector((state) => state.Films.searchQueryRating);
-
 
     const dispatch = useDispatch();
     const setSearchQuery = (value) => {
@@ -30,7 +26,6 @@ function Table(props) {
     const [activeColumnIndex, setActiveColumnIndex] = useState(-1)
     const [sortingOrder, setSortingOrder] = useState('');//'DESC' - по спаданию
     const [activeColumnAcessor, setActiveColumnAcessor] = useState(-1);
-
 
     const createTableColumns = (item) => {
         const isAuthUser = user.userId && user.userId !== null;
@@ -46,7 +41,6 @@ function Table(props) {
         }
 
     }
-
 
     const handleClickTitle = (item) => {
         setActiveColumnAcessor(item.acessor);
@@ -79,7 +73,6 @@ function Table(props) {
     });
 
     const sortArr = sortTable(filteredFilms, activeColumnAcessor, props.columns, sortingOrder);
-
 
     return (
         <>

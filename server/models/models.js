@@ -38,11 +38,6 @@ const User = sequelize.define('user', {
     email: {type: DataTypes.STRING, unique: true, required: true},
     password: {type: DataTypes.STRING, unique: true, required: true}
 })
-// Country.hasMany(Film);//многим странам может принадлежать много фильмов
-// Film.belongsToMany(Country, {through: filmCountry});
-//
-// Genre.hasMany(Film);//многим жанрам может принадлежать много фильмов
-// Film.belongsToMany(Genre, {through: filmGenre});
 
 module.exports = {
     Film,

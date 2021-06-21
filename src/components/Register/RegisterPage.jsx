@@ -1,6 +1,5 @@
 import React, {useEffect, useState} from 'react';
 import './RegisterPage.css';
-import axios from 'axios';
 
 function RegisterPage(props) {
     const [email, setEmail] = useState('');
@@ -10,7 +9,6 @@ function RegisterPage(props) {
     const [emailError, setEmailError] = useState('Email should not be empty');
     const [passwordError, setPasswordError] = useState('Password should not be empty');
     const [formValid, setFormValid] = useState(false);
-
 
     useEffect(() => {
         if(emailError || passwordError) {
