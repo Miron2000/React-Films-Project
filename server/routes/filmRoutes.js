@@ -1,9 +1,10 @@
 const express = require('express');
 const filmRouter = express.Router();
 const filmController = require('../controllers/filmController');
+const checkAuthenticated = require('../middleware/checkAuthenticated');
 
 filmRouter.get('/films', filmController.getFilms);
-filmRouter.get('/film/:id', filmController.getFilmById);
+filmRouter.get('/film/:id', checkAuthenticated, filmController.getFilmById);
 filmRouter.post('/film', filmController.addFilm);
 filmRouter.put('/film/:id', filmController.updateFilm);
 filmRouter.delete('/film/:id', filmController.deleteFilm);

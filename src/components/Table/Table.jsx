@@ -1,18 +1,19 @@
 import React, {useEffect, useState} from 'react';
 import './Table.css';
+import {Link} from "react-router-dom";
 import FilteredInputs from "./FilteredInputs";
 import sortTable from "../../TableOperations/sortTable";
 import {binarySearch, drawTableBinarySearch} from "../../TableOperations/binarySearch";
 import {useSelector, useDispatch} from "react-redux";
-import {Films} from "../../store/reducers/reducers";
+import {Films, User} from "../../store/reducers/reducers";
 import {setSearchValue, setSearchValueRating} from "../../store/actions/actions";
 
 
 function Table(props) {
 
+    const user = useSelector((state) => state.User.user);
     const searchQuery = useSelector((state) => state.Films.searchQuery);
     const searchQueryRating = useSelector((state) => state.Films.searchQueryRating);
-
 
     const dispatch = useDispatch();
     const setSearchQuery = (value) => {
@@ -26,13 +27,20 @@ function Table(props) {
     const [sortingOrder, setSortingOrder] = useState('');//'DESC' - по спаданию
     const [activeColumnAcessor, setActiveColumnAcessor] = useState(-1);
 
-
     const createTableColumns = (item) => {
-        return props.columns.map((i) => {
-            return <td key={i.acessor}>{item[i.acessor]}</td>;
-        })
-    }
+        const isAuthUser = user.userId && user.userId !== null;
+        if(isAuthUser) {
+            return props.columns.map((i) => {
+                let linkItem = <Link to={`film/${item.id}`} className='link__filmId'>{item[i.acessor]}</Link>
+                return <td key={i.acessor}>{linkItem}</td>;
+            })
+        } else {
+            return props.columns.map((i) => {
+                return <td key={i.acessor} className='link__filmId'>{item[i.acessor]}</td>;
+            })
+        }
 
+    }
 
     const handleClickTitle = (item) => {
         setActiveColumnAcessor(item.acessor);
@@ -66,9 +74,9 @@ function Table(props) {
 
     const sortArr = sortTable(filteredFilms, activeColumnAcessor, props.columns, sortingOrder);
 
-
     return (
         <>
+
             <FilteredInputs searchQuery={searchQuery} setSearchQuery={setSearchQuery}
                             searchQueryRating={searchQueryRating} setSearchQueryRating={setSearchQueryRating}
                             sortArr={sortArr}/>

@@ -2,6 +2,7 @@ const {Film, filmCountry, filmGenre} = require('../models/models');
 const ApiError = require('../error/ApiError');
 const sequelize = require('../db');
 const express = require('express');
+
 const app = express();
 
 class filmController {

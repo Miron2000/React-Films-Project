@@ -1,10 +1,17 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import './Header.css';
 import logo from "../../logo/logo";
 import {NavLink} from "react-router-dom";
 import HamburgerMenu from "./Hamburger-menu";
 
-const Header = () => {
+const Header = ({user}) => {
+
+
+
+    console.log(user, 'user')
+
+const isAuthUser = user.userId && user.userId !== null;
+
     return (
         <header className="header">
             <div className="header__section">
@@ -12,7 +19,17 @@ const Header = () => {
                 <div className="header__item hover"><NavLink to="/films">Table</NavLink></div>
             </div>
             <div className="header__section">
-                <div className="header__item hover"><NavLink to="/login">Login</NavLink></div>
+                {isAuthUser ?
+                    (<div className="header__item hover"><NavLink to="/logout">Logout</NavLink></div>) :
+                    (
+                        <>
+                            <div className="header__item hover"><NavLink to="/login">Sign In</NavLink></div>
+                            <div className="header__item hover"><NavLink to="/register">Sign Up</NavLink></div>
+                        </>)
+                }
+
+
+                {/*<div className="header__item hover"><NavLink to="/logout">Logout</NavLink></div>*/}
             </div>
 
             <HamburgerMenu/>

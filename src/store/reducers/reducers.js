@@ -1,4 +1,4 @@
-import {filmActionType, darkModeType} from '../actions/actions';
+import {filmActionType, darkModeType, authUser} from '../actions/actions';
 
 const filmInitialState = {
     searchQuery: '',
@@ -7,6 +7,11 @@ const filmInitialState = {
 
 const themeInitialState = {
     darkTheme: false
+};
+
+const userInitialState = {
+    user: {}
+    // statusAuthUser: null
 };
 
 export const Films = (state = filmInitialState, action) => {
@@ -33,6 +38,18 @@ export const Theme = (state = themeInitialState, action) => {
             return ({
                 ...state,
                 darkTheme: action.payload
+            })
+        default:
+            return state;
+    }
+}
+
+export const User = (state = userInitialState, action) => {
+    switch (action.type) {
+        case authUser.SET_AUTH_USER:
+            return ({
+                ...state,
+                user: action.payload
             })
         default:
             return state;

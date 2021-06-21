@@ -32,16 +32,18 @@ const Genre = sequelize.define('genre', {
     code: {type: DataTypes.STRING}
 })
 
-// Country.hasMany(Film);//многим странам может принадлежать много фильмов
-// Film.belongsToMany(Country, {through: filmCountry});
-//
-// Genre.hasMany(Film);//многим жанрам может принадлежать много фильмов
-// Film.belongsToMany(Genre, {through: filmGenre});
+const User = sequelize.define('user', {
+    id: {type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true},
+    // name: {type: DataTypes.STRING, unique: true},
+    email: {type: DataTypes.STRING, unique: true, required: true},
+    password: {type: DataTypes.STRING, unique: true, required: true}
+})
 
 module.exports = {
     Film,
     Country,
     Genre,
     filmCountry,
-    filmGenre
+    filmGenre,
+    User
 }
