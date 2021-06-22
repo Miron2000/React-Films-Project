@@ -6,11 +6,7 @@ import HamburgerMenu from "./Hamburger-menu";
 
 const Header = ({user}) => {
 
-
-
-    console.log(user, 'user')
-
-const isAuthUser = user.userId && user.userId !== null;
+    const isAuthUser = user.userId && user.userId !== null;
 
     return (
         <header className="header">

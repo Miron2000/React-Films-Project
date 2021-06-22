@@ -11,6 +11,7 @@ import {useDispatch, useSelector} from "react-redux";
 import {setDarkMode as setDarkModeAction} from "./store/actions/actions";
 import {Theme, User} from "./store/reducers/reducers";
 import FilmById from "./components/Table/FilmById";
+import ChatButton from "./components/Common/Chat/ChatButton";
 
 const App = () => {
     const isDarkMode = useSelector((state) => state.Theme.darkTheme);
@@ -21,14 +22,20 @@ const App = () => {
     }
 
     const user = useSelector((state) => state.User.user);
-    console.log(user, 'isAuthUser')
+    const isAuthUser = user.userId && user.userId !== null;
 
     return (
         <BrowserRouter>
             <div className={isDarkMode ? "dark-mode" : "light-mode"}>
                 <div className="page">
                     <Header user={user}/>
-                    <Tooggle setDarkMode={setDarkMode} isDarkMode={isDarkMode}/>
+                    {isAuthUser ? (<div className='common'>
+                            <ChatButton user={user}/>
+                            <Tooggle setDarkMode={setDarkMode} isDarkMode={isDarkMode}/>
+                        </div>) :
+                        <h4 className='text__noAuthUser'>Please login or register so that you can use the different
+                            features of the site</h4>}
+
                     <section className="section">
                         <Route exect path='/films' component={FilmsPage}/>
                         <Route path='/login' component={Login}/>

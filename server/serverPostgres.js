@@ -16,15 +16,24 @@ const flash = require('express-flash');
 const initializePassport = require('./passport-config');
 const morgan = require('morgan');
 const fs = require('fs');
+const app = express();
+const http = require('http').createServer(app);
+const io = require('socket.io')(http);
+
 const PORT = process.env.PORT || 5000;
 
-const app = express();
+
+io.on('connection', socket => {
+    socket.on('message', ({name, message}) => {
+        io.emit('message', {name, message})
+    })
+})
 
 const start = async () => {
     try {
         await sequelize.authenticate()
         await sequelize.sync()
-        app.listen(PORT, () => console.log(`SERVER IS RUNNING ON THE ${PORT} PORT`));
+        http.listen(PORT, () => console.log(`SERVER IS RUNNING ON THE ${PORT} PORT`));
     } catch (err) {
         console.log(err);
     }
