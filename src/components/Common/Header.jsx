@@ -20,7 +20,7 @@ const isAuthUser = user.userId && user.userId !== null;
             </div>
             <div className="header__section">
                 {isAuthUser ?
-                    (<div className="header__item hover"><NavLink to="/logout">Logout</NavLink></div>) :
+                    (<div className="header__item hover"><a href="/logout">Logout</a></div>) :
                     (
                         <>
                             <div className="header__item hover"><NavLink to="/login">Sign In</NavLink></div>

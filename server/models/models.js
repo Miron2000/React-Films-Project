@@ -34,7 +34,6 @@ const Genre = sequelize.define('genre', {
 
 const User = sequelize.define('user', {
     id: {type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true},
-    // name: {type: DataTypes.STRING, unique: true},
     email: {type: DataTypes.STRING, unique: true, required: true},
     password: {type: DataTypes.STRING, unique: true, required: true}
 })

@@ -11,7 +11,6 @@ import {useDispatch, useSelector} from "react-redux";
 import {setDarkMode as setDarkModeAction} from "./store/actions/actions";
 import {Theme, User} from "./store/reducers/reducers";
 import FilmById from "./components/Table/FilmById";
-import LogoutPage from "./components/Logout/LogoutPage";
 
 const App = () => {
     const isDarkMode = useSelector((state) => state.Theme.darkTheme);
@@ -34,7 +33,6 @@ const App = () => {
                         <Route exect path='/films' component={FilmsPage}/>
                         <Route path='/login' component={Login}/>
                         <Route path='/register' component={Register}/>
-                        <Route path='/logout' component={LogoutPage}/>
                     </section>
                     <Route path='/film/:id' component={FilmById}/>
                     <Footer/>

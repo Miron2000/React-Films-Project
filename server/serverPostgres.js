@@ -14,7 +14,6 @@ const passport = require('passport');
 const session = require('express-session');
 const flash = require('express-flash');
 const initializePassport = require('./passport-config');
-const methodOverride = require('method-override');
 const morgan = require('morgan');
 const fs = require('fs');
 const PORT = process.env.PORT || 5000;
@@ -59,15 +58,9 @@ app.use(dataBaseRouter);
 //для аунтификации
 app.use(authRouter);
 
-//для виходу з аккаунту
-app.use(methodOverride('_method'))
 //Обработка ошибок
 app.use(errorHandler);
 
-app.get('/logout', function (req, res) {
-    req.logout();
-    res.redirect('/login');
-});
 
 app.get('/film/:id', function (req, res) {
     res.redirect('/');

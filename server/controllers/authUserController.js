@@ -7,7 +7,7 @@ const passport = require('passport');
 
 class authUserController {
 
-    async register_post(req, res, next) {
+    async registerUser(req, res, next) {
         if (req.isAuthenticated()) {
             return res.redirect('/films')
         }
@@ -33,7 +33,7 @@ class authUserController {
         }
     }
 
-    async login_post(req, res, next) {
+    async loginUser(req, res, next) {
         const {email, password} = req.body;
         const user = await User.findOne({where: {email}});
         if (user && bcrypt.compareSync(password, user.password)) {
@@ -42,7 +42,7 @@ class authUserController {
         res.status(401).send({message: "Invalid email or password"});
     }
 
-    logout(req, res, next) {
+    logoutUser(req, res, next) {
         req.logout();
         res.redirect('/login');
     }
