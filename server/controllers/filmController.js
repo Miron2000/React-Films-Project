@@ -27,7 +27,9 @@ class filmController {
                 releaseDate: film.releaseDate,
                 countries: countryName.toString(),
                 assessment: film.assessment,
-                imdbFilm: film.imdbFilm
+                imdbFilm: film.imdbFilm,
+                imageFilm: film.imageFilm,
+                overview: film.overview
             }
             return objFilm
         })
@@ -54,7 +56,9 @@ class filmController {
             releaseDate: film.releaseDate,
             country: countryName ? countryName.toString() : '',
             assessment: film.assessment,
-            imdbFilm: film.imdbFilm
+            imdbFilm: film.imdbFilm,
+            imageFilm: film.imageFilm,
+            overview: film.overview
         }
 
         try {

@@ -7,6 +7,8 @@ const Film = sequelize.define('film', {
     releaseDate: {type: DataTypes.STRING},
     assessment: {type: DataTypes.DOUBLE},
     imdbFilm: {type: DataTypes.STRING},
+    imageFilm: {type: DataTypes.STRING},
+    overview: {type: DataTypes.STRING}
 })
 const filmCountry = sequelize.define('film_country', {
     id: {type: DataTypes.INTEGER, primaryKey:true, autoIncrement: true},
@@ -37,6 +39,13 @@ const User = sequelize.define('user', {
     email: {type: DataTypes.STRING, unique: true, required: true},
     password: {type: DataTypes.STRING, unique: true, required: true}
 })
+
+//для чата
+// const Chat = sequelize.define('chat', {
+//     id: {type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true},
+//     name: {type: DataTypes.STRING},
+//     message: {type: DataTypes.STRING},
+// })
 
 module.exports = {
     Film,

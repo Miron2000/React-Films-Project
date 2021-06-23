@@ -12,6 +12,7 @@ import {setDarkMode as setDarkModeAction} from "./store/actions/actions";
 import {Theme, User} from "./store/reducers/reducers";
 import FilmById from "./components/Table/FilmById";
 import ChatButton from "./components/Common/Chat/ChatButton";
+import FilmsPageTile from "./containers/FilmsPageTile";
 
 const App = () => {
     const isDarkMode = useSelector((state) => state.Theme.darkTheme);
@@ -35,9 +36,9 @@ const App = () => {
                         </div>) :
                         <h4 className='text__noAuthUser'>Please login or register so that you can use the different
                             features of the site</h4>}
-
                     <section className="section">
-                        <Route exect path='/films' component={FilmsPage}/>
+                        <Route path='/' component={FilmsPageTile}/>
+                        <Route path='/films' component={FilmsPage}/>
                         <Route path='/login' component={Login}/>
                         <Route path='/register' component={Register}/>
                     </section>
