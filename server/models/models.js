@@ -41,11 +41,11 @@ const User = sequelize.define('user', {
 })
 
 //для чата
-// const Chat = sequelize.define('chat', {
-//     id: {type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true},
-//     name: {type: DataTypes.STRING},
-//     message: {type: DataTypes.STRING},
-// })
+const Chat = sequelize.define('chat', {
+    id: {type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true},
+    name: {type: DataTypes.STRING},
+    message: {type: DataTypes.STRING},
+})
 
 module.exports = {
     Film,
@@ -53,5 +53,6 @@ module.exports = {
     Genre,
     filmCountry,
     filmGenre,
-    User
+    User,
+    Chat
 }

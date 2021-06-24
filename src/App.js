@@ -37,10 +37,12 @@ const App = () => {
                         <h4 className='text__noAuthUser'>Please login or register so that you can use the different
                             features of the site</h4>}
                     <section className="section">
-                        <Route path='/' component={FilmsPageTile}/>
-                        <Route path='/films' component={FilmsPage}/>
-                        <Route path='/login' component={Login}/>
-                        <Route path='/register' component={Register}/>
+                        <Switch>
+                            <Route path='/films' component={FilmsPage}/>
+                            <Route path='/login' component={Login}/>
+                            <Route path='/register' component={Register}/>
+                            <Route exact path='/' component={FilmsPageTile}/>
+                        </Switch>
                     </section>
                     <Route path='/film/:id' component={FilmById}/>
                     <Footer/>

@@ -1,8 +1,9 @@
 require('dotenv').config();
-const {User} = require('./models/models');
+const {User, Chat} = require('./models/models');
 const filmRouter = require('./routes/filmRoutes');
 const dataBaseRouter = require('./routes/dataBaseRoutes');
 const authRouter = require('./routes/authRoutes');
+const chatRouter = require('./routes/chatRoutes');
 const express = require('express');
 const sequelize = require('./db');
 const models = require('./models/models');
@@ -25,6 +26,10 @@ const PORT = process.env.PORT || 5000;
 
 io.on('connection', socket => {
     socket.on('message', ({name, message}) => {
+        //зберігання інформаціїї в БД функцію зробити
+        const chat = Chat.create({name, message})
+        console.log(name, 'name');
+        console.log(message, 'message')
         io.emit('message', {name, message})
     })
 })
@@ -67,6 +72,8 @@ app.use(dataBaseRouter);
 //для аунтификации
 app.use(authRouter);
 
+//Для чата
+app.use(chatRouter);
 //Обработка ошибок
 app.use(errorHandler);
 

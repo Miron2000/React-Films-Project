@@ -2,12 +2,23 @@ import React, {useState, useEffect} from 'react';
 import io from 'socket.io-client';
 import TextField from "@material-ui/core/TextField";
 import './Chat.css';
+import axios from "axios";
 
-const ChatModal = ({active, setActive}) => {
+const ChatModal = ({active, setActive, chatArr}) => {
 
     const socket = io.connect('http://localhost:3000');
     const [state, setState] = useState({message: '', name: ''});
     const [chat, setChat] = useState([]);
+
+    // const [chats, setChats] = useState('');
+    // useEffect(() => {
+    //     const apiUrlChat = `http://localhost:3000/chat`;
+    //     axios.get(apiUrlChat).then((response) => {
+    //         const getChats = response.data;
+    //         setChats(getChats)
+    //     });
+    // }, [setChats])
+    // console.log(chats, 'chat')
 
     const onTextChange = e => {
         setState({...state, [e.target.name]: e.target.value})
@@ -33,6 +44,17 @@ const ChatModal = ({active, setActive}) => {
             </div>
         ))
     }
+
+    const test = () => {
+        console.log(chatArr, 'test')
+        // return chatArr.map((c) => (
+        //     console.log(c, 'test')
+        //     // <div key={c.id}>
+        //     //     <h3>{c.name}: <span>{c.message}</span></h3>
+        //     // </div>
+        // ))
+    }
+    test()
 
 
     return (
@@ -63,6 +85,7 @@ const ChatModal = ({active, setActive}) => {
                     </form>
                     <div className="render-chat">
                         <h2 className="heading">Chat Log</h2>
+                        {/*{test()}*/}
                         {renderChat()}
                     </div>
                 </div>
