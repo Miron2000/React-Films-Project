@@ -1,10 +1,10 @@
 import React, {useEffect, useState} from 'react';
-import './FilmsTile.css';
+import './FilmsCards.css';
 import {User} from "../../store/reducers/reducers";
 import {useSelector} from "react-redux";
 import {Link} from "react-router-dom";
 
-function FilmsTile({film}) {
+function FilmsCards({film}) {
 
     const user = useSelector((state) => state.User.user);
 
@@ -38,4 +38,4 @@ function FilmsTile({film}) {
     );
 }
 
-export default FilmsTile;
+export default FilmsCards;

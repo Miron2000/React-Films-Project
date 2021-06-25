@@ -12,7 +12,7 @@ const Header = ({user}) => {
         <header className="header">
             <div className="header__section">
                 <div className="header__item"><img className="header__logo" src={logo} alt="logo"/></div>
-                <div className="header__item hover"><NavLink to="/">Tile</NavLink></div>
+                <div className="header__item hover"><NavLink to="/">Cards</NavLink></div>
                 <div className="header__item hover"><NavLink to="/films">Table</NavLink></div>
             </div>
             <div className="header__section">

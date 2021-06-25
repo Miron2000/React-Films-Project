@@ -12,7 +12,7 @@ import {setDarkMode as setDarkModeAction} from "./store/actions/actions";
 import {Theme, User} from "./store/reducers/reducers";
 import FilmById from "./components/Table/FilmById";
 import ChatButton from "./components/Common/Chat/ChatButton";
-import FilmsPageTile from "./containers/FilmsPageTile";
+import FilmsPageCards from "./containers/FilmsPageCards";
 
 const App = () => {
     const isDarkMode = useSelector((state) => state.Theme.darkTheme);
@@ -34,14 +34,13 @@ const App = () => {
                             <ChatButton user={user}/>
                             <Tooggle setDarkMode={setDarkMode} isDarkMode={isDarkMode}/>
                         </div>) :
-                        <h4 className='text__noAuthUser'>Please login or register so that you can use the different
-                            features of the site</h4>}
+                        <h4 className='text__noAuthUser'>Please log in to the site so that you can get detailed information about the films</h4>}
                     <section className="section">
                         <Switch>
                             <Route path='/films' component={FilmsPage}/>
                             <Route path='/login' component={Login}/>
                             <Route path='/register' component={Register}/>
-                            <Route exact path='/' component={FilmsPageTile}/>
+                            <Route exact path='/' component={FilmsPageCards}/>
                         </Switch>
                     </section>
                     <Route path='/film/:id' component={FilmById}/>

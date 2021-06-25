@@ -1,9 +1,9 @@
 import React from 'react';
 import axios from 'axios';
-import '../components/Tile/FilmsTile.css'
-import FilmsTile from "../components/Tile/FilmsTile";
+import '../components/Cards/FilmsCards.css'
+import FilmsCards from "../components/Cards/FilmsCards";
 
-class FilmsPageTile extends React.Component {
+class FilmsPageCards extends React.Component {
     state = {
         films: [],
         isLoading: false
@@ -28,11 +28,11 @@ class FilmsPageTile extends React.Component {
     render() {
         return (
             <div className='movie-container'>
-                {this.state.films.map((film) =>  <FilmsTile key={film.id} film={film}/>)}
+                {this.state.films.map((film) =>  <FilmsCards key={film.id} film={film}/>)}
 
             </div>
         );
     }
 }
 
-export default FilmsPageTile;
+export default FilmsPageCards;
