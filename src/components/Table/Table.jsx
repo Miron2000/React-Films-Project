@@ -5,6 +5,7 @@ import FilteredInputs from "./FilteredInputs";
 import sortTable from "../../TableOperations/sortTable";
 import {binarySearch, drawTableBinarySearch} from "../../TableOperations/binarySearch";
 import {useSelector, useDispatch} from "react-redux";
+import {debounce} from "lodash";
 import {Films, User} from "../../store/reducers/reducers";
 import {setSearchValue, setSearchValueRating} from "../../store/actions/actions";
 
@@ -16,9 +17,13 @@ function Table(props) {
     const searchQueryRating = useSelector((state) => state.Films.searchQueryRating);
 
     const dispatch = useDispatch();
+    // const setSearchQuery = debounce((value) => {
+    //     dispatch(setSearchValue(value))
+    // }, 200)
     const setSearchQuery = (value) => {
         dispatch(setSearchValue(value))
     }
+    // const test = debounce(setSearchQuery, 200)
     const setSearchQueryRating = (value) => {
         dispatch(setSearchValueRating(value))
     }
@@ -29,7 +34,7 @@ function Table(props) {
 
     const createTableColumns = (item) => {
         const isAuthUser = user.userId && user.userId !== null;
-        if(isAuthUser) {
+        if (isAuthUser) {
             return props.columns.map((i) => {
                 let linkItem = <Link to={`film/${item.id}`} className='link__filmId'>{item[i.acessor]}</Link>
                 return <td key={i.acessor}>{linkItem}</td>;
@@ -56,6 +61,7 @@ function Table(props) {
     const indexSearch = binarySearch(ratingArr, searchQueryRating);
     const arrBinarySearch = drawTableBinarySearch(indexSearch, ratingArr, props.data);
 
+
     //Search
     const filteredFilms = arrBinarySearch.filter(item => {
         const searchItem = (title) => {
@@ -65,14 +71,31 @@ function Table(props) {
         if (searchQuery === '') {
             return true;
         }
-
+        console.log(searchQuery, 'searchQuery')
         return props.columns.some(col => {
             return searchItem(item[col.acessor]);
         })
 
     });
 
+    // const debounce = (fn, ms) => {
+    //     let timeout;
+    //     return function () {
+    //         const fnCall = () => {
+    //             fn.apply(this, arguments)
+    //         }
+    //         clearTimeout(timeout);
+    //
+    //         timeout = setTimeout(fnCall, ms)
+    //         console.log(timeout, 'timeout');
+    //     }
+    // }
+    // let test = debounce(setSearchQuery, 200);
+    // console.log(test, 'test')
+
     const sortArr = sortTable(filteredFilms, activeColumnAcessor, props.columns, sortingOrder);
+
+
 
     return (
         <>

@@ -26,10 +26,7 @@ const PORT = process.env.PORT || 5000;
 
 io.on('connection', socket => {
     socket.on('message', async ({name, message}) => {
-        //зберігання інформаціїї в БД функцію зробити
         const chat = await Chat.create({name, message})
-        console.log(name, 'name');
-        console.log(message, 'message')
         io.emit('message', {name, message})
     })
 })

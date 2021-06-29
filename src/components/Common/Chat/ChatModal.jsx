@@ -3,31 +3,31 @@ import ReactDOM from 'react-dom';
 import io from 'socket.io-client';
 import TextField from "@material-ui/core/TextField";
 import './Chat.css';
+import axios from "axios";
 
-const ChatModal = ({active, setActive, chatArr = []}) => {
+const ChatModal = ({active, setActive}) => {
 
     const socket = io.connect('http://localhost:3000');
-    const [state, setState] = useState({message: '', name: ''});
-    const [chat, setChat] = useState(chatArr);
-    console.log(chat, 'chatModal')
 
-    // useEffect(() => {
-    //      this.root = document.createElement('div');
-    //     document.body.appendChild(this.root);
-    // },[])
-    //
-    // useEffect(() => {
-    //     document.body.removeChild(this.root);
-    // },[])
+    const [state, setState] = useState({message: '', name: ''});
+    const [chatArr, setСhatArr] = useState([]);
+    const [chat, setChat] = useState(chatArr);
+    const [nameError, setNameError] = useState('Name should not be empty');
+    const [formValid, setFormValid] = useState(false);
+
+    useEffect(() => {
+        const apiUrlChat = `http://localhost:3000/chat`;
+        axios.get(apiUrlChat).then((response) => {
+            const getChats = response.data;
+            setСhatArr(getChats)
+        });
+    }, []);
+
 
     useEffect( () => {
         setChat([...chatArr, ...chat])
     }, [chatArr]);
 
-
-    const onTextChange = e => {
-        setState({...state, [e.target.name]: e.target.value})
-    }
 
     useEffect(() => {
         socket.on('message', ({name, message}) => {
@@ -49,6 +49,28 @@ const ChatModal = ({active, setActive, chatArr = []}) => {
             </div>
         ))
     }
+
+    const onTextChange = e => {
+        setState({...state, [e.target.name]: e.target.value});
+
+        if(e.target.value.length < 1){
+            setNameError('Please enter your name');
+            if(!e.target.value) {
+                setNameError('Name should not be empty');
+            }
+        }else {
+            setNameError('');
+        }
+    }
+
+    useEffect(() => {
+        if(nameError) {
+            setFormValid(false);
+        } else {
+            setFormValid(true);
+        }
+    }, [nameError]);
+
 
     return ReactDOM.createPortal(
         <div className={active ? 'modal active' : 'modal'} onClick={() => setActive(false)}>
@@ -74,7 +96,7 @@ const ChatModal = ({active, setActive, chatArr = []}) => {
                                 value={state.message}
                             />
                         </div>
-                        <button className="btn__send">Send Message</button>
+                        <button className="btn__send" disabled={!formValid}>Send Message</button>
                     </form>
                     <div className="render-chat">
                         <h2 className="heading">Chat Log</h2>
@@ -84,7 +106,6 @@ const ChatModal = ({active, setActive, chatArr = []}) => {
             </div>
         </div>,
         document.getElementById('portal')
-        // {this.root}
     );
 }
 
