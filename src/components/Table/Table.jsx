@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, {useCallback, useEffect, useState} from 'react';
 import './Table.css';
 import {Link} from "react-router-dom";
 import FilteredInputs from "./FilteredInputs";
@@ -17,20 +17,20 @@ function Table(props) {
     const searchQueryRating = useSelector((state) => state.Films.searchQueryRating);
 
     const dispatch = useDispatch();
-    // const setSearchQuery = debounce((value) => {
-    //     dispatch(setSearchValue(value))
-    // }, 200)
+
     const setSearchQuery = (value) => {
         dispatch(setSearchValue(value))
     }
-    // const test = debounce(setSearchQuery, 200)
+
     const setSearchQueryRating = (value) => {
         dispatch(setSearchValueRating(value))
     }
 
+
     const [activeColumnIndex, setActiveColumnIndex] = useState(-1)
     const [sortingOrder, setSortingOrder] = useState('');//'DESC' - по спаданию
     const [activeColumnAcessor, setActiveColumnAcessor] = useState(-1);
+    const [searchText, setSearchText] = useState('');
 
     const createTableColumns = (item) => {
         const isAuthUser = user.userId && user.userId !== null;
@@ -61,41 +61,34 @@ function Table(props) {
     const indexSearch = binarySearch(ratingArr, searchQueryRating);
     const arrBinarySearch = drawTableBinarySearch(indexSearch, ratingArr, props.data);
 
+    let debounceSearchQuery = useCallback(
+        debounce(value => setSearchText(value), 200),
+        []
+    );
+
+    useEffect(() => {
+        debounceSearchQuery(searchQuery)
+    }, [searchQuery])
 
     //Search
     const filteredFilms = arrBinarySearch.filter(item => {
         const searchItem = (title) => {
-            return title.toString().toLowerCase().includes(searchQuery.trim().toLowerCase());
+            return title.toString().toLowerCase().includes(searchText.trim().toLowerCase());
         }
 
-        if (searchQuery === '') {
+        if (searchText === '') {
             return true;
         }
-        console.log(searchQuery, 'searchQuery')
+        // console.log(searchQuery, 'searchQuery')
         return props.columns.some(col => {
             return searchItem(item[col.acessor]);
         })
 
     });
 
-    // const debounce = (fn, ms) => {
-    //     let timeout;
-    //     return function () {
-    //         const fnCall = () => {
-    //             fn.apply(this, arguments)
-    //         }
-    //         clearTimeout(timeout);
-    //
-    //         timeout = setTimeout(fnCall, ms)
-    //         console.log(timeout, 'timeout');
-    //     }
-    // }
-    // let test = debounce(setSearchQuery, 200);
-    // console.log(test, 'test')
+    console.log(searchText, 'searchText');
 
     const sortArr = sortTable(filteredFilms, activeColumnAcessor, props.columns, sortingOrder);
-
-
 
     return (
         <>
@@ -119,6 +112,6 @@ function Table(props) {
             </div>
         </>
     );
-}
+};
 
 export default Table;
