@@ -68,6 +68,40 @@ class filmController {
         }
     }
 
+    async getFilmGenre(req, res, next) {
+        const genresArr = await sequelize.query(`SELECT * from genres`);
+
+        const genre = genresArr[0].map((g) => {
+            const objGenre = {
+                id: g.id,
+                name: g.name_genre
+            }
+            return objGenre
+        })
+        try {
+            res.send(genre);
+        } catch (err) {
+            next(ApiError.badRequest(err.message));
+        }
+    }
+
+    async getFilmCountry(req, res, next) {
+        const countriesArr = await sequelize.query(`SELECT * from countries`);
+
+        const country = countriesArr[0].map((c) => {
+            const objCountry = {
+                id: c.id,
+                name: c.name_country
+            }
+            return objCountry
+        })
+        try {
+            res.send(country);
+        } catch (err) {
+            next(ApiError.badRequest(err.message));
+        }
+    }
+
     async addFilm(req, res, next) {
         try {
             const {name, releaseDate, assessment, imdbFilm, genre_id, country_id} = req.body
@@ -94,8 +128,8 @@ class filmController {
         await sequelize.query(`DELETE FROM film_genres WHERE film_id = ${id}`);
 
         const {name, releaseDate, assessment, imdbFilm, genreId, countryId} = req.body;
-        const typeFilmGenre = await filmGenre.create({genre_id: genreId, film_id:id});
-        const typeFilmCountry = await filmCountry.create({country_id: countryId, film_id:id});
+        const typeFilmGenre = await filmGenre.create({genre_id: genreId, film_id: id});
+        const typeFilmCountry = await filmCountry.create({country_id: countryId, film_id: id});
 
         const updateFilm = await Film.update({
             name: name ? name : 'Name not specified',

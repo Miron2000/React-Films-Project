@@ -81,7 +81,7 @@
     font-family: "Noto Sans CJK SC";
 }
 
-form {
+.form__modal {
     max-width: 350px;
     border-radius: 5px;
     padding: 20px;

@@ -10,11 +10,15 @@ function FilmsCards({film}) {
 
     const onClickFilmId = (item) => {
         const isAuthUser = user.userId && user.userId !== null;
-
+        const imgFilm = `https://via.placeholder.com/468x60?text=${encodeURIComponent(film.name)}`;
         if (isAuthUser) {
-            return <Link to={`film/${item.id}`} className='link__filmId'>
-                <img key={film.id} src={film.imageFilm} alt={film.name}/>
-            </Link>
+            if(film.imageFilm === undefined || film.imageFilm === ''){
+                return imgFilm
+            } else {
+                return <Link to={`film/${item.id}`} className='link__filmId'>
+                    <img key={film.id} src={film.imageFilm} alt={film.name}/>
+                </Link>
+            }
         } else {
             return <img key={film.id} src={film.imageFilm} alt={film.name}/>
 

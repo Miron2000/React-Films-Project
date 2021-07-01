@@ -76,7 +76,7 @@ const ChatModal = ({active, setActive}) => {
         <div className={active ? 'modal active' : 'modal'} onClick={() => setActive(false)}>
             <div className={active ? 'modal__content active' : 'modal__content'} onClick={e => e.stopPropagation()}>
                 <div className="card">
-                    <form onSubmit={onMeessageSubmit}>
+                    <form className="form__modal" onSubmit={onMeessageSubmit}>
                         <h2 className="heading">Messenger</h2>
                         <div className="name-field">
                             <TextField

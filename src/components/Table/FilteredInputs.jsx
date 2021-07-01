@@ -7,7 +7,6 @@ import './Table.css';
 function FilteredInputs(props) {
 
     const [isOpen, setIsOpen] = useState(true);
-    const [someSearchState, setSomeSearchState] = useState('');
 
     const itemClickHandler = (e) => {
         props.setSearchQueryRating(e.target.textContent);
@@ -19,7 +18,6 @@ function FilteredInputs(props) {
     }
 
     const onChange = (event) => {
-        // props.setSomeSearchState(event.target.value);
         props.setSearchQuery(event.target.value);
     }
 
@@ -27,15 +25,6 @@ function FilteredInputs(props) {
         <>
             <div className='searchInputs'>
                 <div className="searchInputs__item">
-                    {/*<DebounceInput*/}
-                    {/*    className="searchInputs__search"*/}
-                    {/*    type="search"*/}
-                    {/*    name="q"*/}
-                    {/*    placeholder="Search..."*/}
-                    {/*    value={props.searchQuery}*/}
-                    {/*    minLength={1}*/}
-                    {/*    debounceTimeout={200}*/}
-                    {/*    onChange={event => props.setSearchQuery(event.target.value)} />*/}
 
                     <input className="searchInputs__search"
                            type="search"

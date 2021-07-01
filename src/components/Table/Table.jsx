@@ -9,7 +9,6 @@ import {debounce} from "lodash";
 import {Films, User} from "../../store/reducers/reducers";
 import {setSearchValue, setSearchValueRating} from "../../store/actions/actions";
 
-
 function Table(props) {
 
     const user = useSelector((state) => state.User.user);
@@ -26,11 +25,10 @@ function Table(props) {
         dispatch(setSearchValueRating(value))
     }
 
-
     const [activeColumnIndex, setActiveColumnIndex] = useState(-1)
     const [sortingOrder, setSortingOrder] = useState('');//'DESC' - по спаданию
     const [activeColumnAcessor, setActiveColumnAcessor] = useState(-1);
-    const [searchText, setSearchText] = useState('');
+    const [debounceSearchText, setDebounceSearchText] = useState('');
 
     const createTableColumns = (item) => {
         const isAuthUser = user.userId && user.userId !== null;
@@ -62,7 +60,7 @@ function Table(props) {
     const arrBinarySearch = drawTableBinarySearch(indexSearch, ratingArr, props.data);
 
     let debounceSearchQuery = useCallback(
-        debounce(value => setSearchText(value), 200),
+        debounce(value => setDebounceSearchText(value), 200),
         []
     );
 
@@ -73,20 +71,18 @@ function Table(props) {
     //Search
     const filteredFilms = arrBinarySearch.filter(item => {
         const searchItem = (title) => {
-            return title.toString().toLowerCase().includes(searchText.trim().toLowerCase());
+            return title.toString().toLowerCase().includes(debounceSearchText.trim().toLowerCase());
         }
 
-        if (searchText === '') {
+        if (debounceSearchText === '') {
             return true;
         }
-        // console.log(searchQuery, 'searchQuery')
+
         return props.columns.some(col => {
             return searchItem(item[col.acessor]);
         })
 
     });
-
-    console.log(searchText, 'searchText');
 
     const sortArr = sortTable(filteredFilms, activeColumnAcessor, props.columns, sortingOrder);
 

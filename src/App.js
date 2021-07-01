@@ -3,6 +3,7 @@ import Header from "./components/Common/Header";
 import FilmsPage from "./containers/FilmsPage";
 import Login from "./containers/Login";
 import Register from "./containers/Register";
+import FilmAdd from "./containers/FilmAdd";
 import Footer from "./components/Common/Footer";
 import './index.css';
 import {BrowserRouter, Route, Switch} from "react-router-dom";
@@ -37,10 +38,11 @@ const App = () => {
                         <h4 className='text__noAuthUser'>Please log in to the site so that you can get detailed information about the films</h4>}
                     <section className="section">
                         <Switch>
+                            <Route exact path='/' component={FilmsPageCards}/>
+                            <Route exact path='/addFilm' component={FilmAdd}/>
                             <Route path='/films' component={FilmsPage}/>
                             <Route path='/login' component={Login}/>
                             <Route path='/register' component={Register}/>
-                            <Route exact path='/' component={FilmsPageCards}/>
                         </Switch>
                     </section>
                     <Route path='/film/:id' component={FilmById}/>
