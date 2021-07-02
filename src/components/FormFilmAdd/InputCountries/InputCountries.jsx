@@ -5,7 +5,6 @@ import axios from 'axios';
 
 function InputCountries(props) {
     const [countries, setCountries] = useState([]);
-    const [selected, setSelected] = useState([]);
 
     useEffect(() => {
         const apiUrlCountries = `http://localhost:3000/api/countries`;
@@ -14,7 +13,7 @@ function InputCountries(props) {
             setCountries(getCountries)
         });
     }, []);
-    console.log(countries, 'countries')
+    // console.log(countries, 'countries')
 
     let options = countries.map((c) => {
         const label = {
@@ -26,17 +25,17 @@ function InputCountries(props) {
 
 
     return (
-        <>
-            <div>
-                <pre>{JSON.stringify(selected)}</pre>
-                <MultiSelect className='multi__select'
-                             options={options}
-                             value={selected}
-                             onChange={setSelected}
-                             labelledBy="Select"
-                />
-            </div>
-        </>
+
+        <div>
+            <MultiSelect className='multi__select'
+                         options={options}
+                         value={props.value}
+                         onChange={props.onChange}
+                         label="Country"
+
+            />
+        </div>
+
     );
 }
 

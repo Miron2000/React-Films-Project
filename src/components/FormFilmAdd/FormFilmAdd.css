@@ -1,8 +1,68 @@
-.input__add-film {
+.page__add-film {
+    margin-top: 2rem;
+    margin-bottom: 5rem;
+}
+.title__add-film {
+    font-family: "Noto Sans CJK SC";
+    font-size: 2rem;
+    text-align: center;
+    color: #86b5c2;
+}
+.container__form {
     display: flex;
     justify-content: center;
 }
 
+.form__add-film {
+    width: 590px;
+    padding: 20px 30px;
+    background: #dbdbdb;
+    border: 2px solid #86b5c2;
+    border-radius: 8px;
+}
+
+.container__add-film {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+.fields__first {
+    display: flex;
+}
+
+.fields__second {
+    display: flex;
+    margin-top: 1rem;
+}
+
+
 .input__text {
     margin-left: 25px !important;
+}
+
+.dropdown-heading {
+    height: 56px !important;
+}
+
+.input__name {
+    width: 230px;
+}
+
+.input__releaseDate {
+    width: 195px;
+}
+
+.input__assessment {
+    width: 82px;
+}
+
+.input__imdb {
+    width: 88px;
+}
+
+.btn__submit {
+    background-color: #86b5c2 !important;
+    margin-top: 1rem !important;
+    border: 1px solid #86b5c2 !important;
 }
