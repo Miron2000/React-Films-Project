@@ -2,7 +2,6 @@ const {Film, filmCountry, filmGenre} = require('../models/models');
 const ApiError = require('../error/ApiError');
 const sequelize = require('../db');
 const express = require('express');
-
 const app = express();
 
 class filmController {
@@ -104,8 +103,8 @@ class filmController {
 
     async addFilm(req, res, next) {
         try {
-            const {name, releaseDate, assessment, imdbFilm, genre_id, country_id} = req.body
-            const typeFilm = await Film.create({name, releaseDate, assessment, imdbFilm});
+            const {name, releaseDate, assessment, imdbFilm, genre_id, country_id, overview} = req.body
+            const typeFilm = await Film.create({name, releaseDate, assessment, imdbFilm, overview});
             const typeFilmGenre = await filmGenre.create({genre_id, film_id: typeFilm.id});
             const typeFilmCountry = await filmCountry.create({country_id, film_id: typeFilm.id});
 
@@ -115,7 +114,6 @@ class filmController {
         }
 
     }
-
 
     async updateFilm(req, res) {
         if (!req.body) {

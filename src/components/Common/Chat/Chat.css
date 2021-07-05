@@ -114,3 +114,15 @@ h3 {
 span {
     color: #000;
 }
+
+@media (max-width: 768px) {
+    .modal__content {
+        width: 75vw;
+    }
+
+    .card {
+        grid-template-rows: 1fr 1fr;
+        grid-template-columns: none;
+        margin: 0;
+    }
+}

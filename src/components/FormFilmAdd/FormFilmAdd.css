@@ -2,12 +2,14 @@
     margin-top: 2rem;
     margin-bottom: 5rem;
 }
+
 .title__add-film {
     font-family: "Noto Sans CJK SC";
     font-size: 2rem;
     text-align: center;
     color: #86b5c2;
 }
+
 .container__form {
     display: flex;
     justify-content: center;
@@ -16,8 +18,8 @@
 .form__add-film {
     width: 590px;
     padding: 20px 30px;
-    background: #dbdbdb;
-    border: 2px solid #86b5c2;
+    background: #86b5c2;
+    border: 2px solid #b539c4;
     border-radius: 8px;
 }
 
@@ -36,6 +38,9 @@
     margin-top: 1rem;
 }
 
+.fields__third {
+    margin-top: 1rem;
+}
 
 .input__text {
     margin-left: 25px !important;
@@ -61,8 +66,56 @@
     width: 88px;
 }
 
+.input__overview {
+    width: 592px;
+}
+
 .btn__submit {
-    background-color: #86b5c2 !important;
+    background-color: #b539c4 !important;;
     margin-top: 1rem !important;
-    border: 1px solid #86b5c2 !important;
+    border: 1px solid #b539c4 !important;
+}
+
+@media (max-width: 768px) {
+    .form__add-film {
+        width: auto;
+        margin: auto;
+    }
+
+    .container__form {
+        flex-direction: column;
+    }
+
+    .fields__first {
+        flex-direction: column;
+    }
+
+    .fields__second {
+        flex-direction: column;
+    }
+
+    .input__name {
+        width: 245px;
+    }
+
+    .input__releaseDate {
+        width: 245px;
+    }
+
+    .input__assessment {
+        width: 245px;
+    }
+
+    .input__imdb {
+        width: 245px;
+    }
+
+    .input__overview {
+        width: 245px;
+    }
+
+    .input__text {
+        margin-top: 20px !important;
+        margin-left: 0 !important;
+    }
 }

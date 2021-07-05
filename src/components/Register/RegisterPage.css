@@ -5,6 +5,7 @@
     margin: auto;
     background-color: #86b5c2;
     text-align: center;
+    border: 2px solid #b539c4;
 }
 .indentation {
     margin-top: 5rem;

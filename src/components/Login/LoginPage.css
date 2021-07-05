@@ -5,6 +5,7 @@
     margin: auto;
     background-color: #86b5c2;
     text-align: center;
+    border: 2px solid #b539c4;
 }
 .indentation {
     margin-top: 5rem;
@@ -57,4 +58,14 @@
 .invalid-feedback {
     display: block;
     color:red;
+}
+
+@media (max-width: 768px) {
+    .box {
+        width: 235px !important;
+    }
+
+    .box input[type = 'email']:focus, .box input[type = 'password']:focus{
+        width: 220px !important;
+    }
 }

@@ -5,9 +5,11 @@
     margin-top: 2rem;
     margin-bottom: 5rem;
 }
+
 .film-img {
     width: 415px;
 }
+
 .film-img img {
     width: 100%;
     height: 84%;
@@ -35,4 +37,14 @@
 .film-info__span {
     color: #000;
     font-family: "Noto Sans CJK SC";
+}
+
+@media (max-width: 768px) {
+    .film-img {
+        width: 295px;
+    }
+
+    .film-info {
+        width: 100%;
+    }
 }

@@ -37,7 +37,7 @@ const Header = ({user}) => {
                 }
             </div>
 
-            <HamburgerMenu/>
+            <HamburgerMenu isAuthUser={isAuthUser}/>
         </header>
     );
 }

@@ -12,13 +12,21 @@ function FilmById(props) {
             setFilm(getFilm)
         });
     }, [setFilm])
-    console.log(film, 'filmById')
+
+    const getFilmImg = (film) => {
+        let imgFilm = film.imageFilm;
+        if (!film.imageFilm) {
+            imgFilm = `http://via.placeholder.com/600x400?text=${encodeURIComponent(film.name)}`;
+        }
+        const img = <img key={film.id} src={imgFilm} alt={film.name}/>
+        return img
+    }
 
     if (!film || film.length === 0) return <p>there is no data.</p>
     return (
         <div className='film-container'>
             <div className='film-img'>
-                <img key={film.id} src={film.imageFilm} alt={film.name}/>
+                {getFilmImg(film)}
             </div>
             <div className='film-info'>
                 <div>
@@ -26,11 +34,15 @@ function FilmById(props) {
                 </div>
                 <div>
                     <h3 className='film-info__text'>Genre: <span className='film-info__span'>{film.genre}</span></h3>
-                    <h3 className='film-info__text'>Release date: <span className='film-info__span'>{film.releaseDate}</span></h3>
-                    <h3 className='film-info__text'>Country: <span className='film-info__span'>{film.country}</span></h3>
-                    <h3 className='film-info__text'>Rating: <span className='film-info__span'>{film.assessment}</span></h3>
+                    <h3 className='film-info__text'>Release date: <span
+                        className='film-info__span'>{film.releaseDate}</span></h3>
+                    <h3 className='film-info__text'>Country: <span className='film-info__span'>{film.country}</span>
+                    </h3>
+                    <h3 className='film-info__text'>Rating: <span className='film-info__span'>{film.assessment}</span>
+                    </h3>
                     <h3 className='film-info__text'>IMDB: <span className='film-info__span'>{film.imdbFilm}</span></h3>
-                    <h3 className='film-info__text'>Overview: <span className='film-info__span'>{film.overview}</span></h3>
+                    <h3 className='film-info__text'>Overview: <span className='film-info__span'>{film.overview}</span>
+                    </h3>
                 </div>
             </div>
         </div>

@@ -10,3 +10,9 @@
 .gray {
     color: #666666 !important;
 }
+
+@media (max-width: 768px) {
+    .multi__select {
+        width: 245px;
+    }
+}

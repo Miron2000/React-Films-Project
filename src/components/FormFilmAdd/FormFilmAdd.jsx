@@ -6,13 +6,11 @@ import Icon from '@material-ui/core/Icon';
 import MenuItem from '@material-ui/core/MenuItem';
 import InputGenres from "./InputGenres/InputGenres";
 import InputCountries from "./InputCountries/InputCountries";
-import axios from "axios";
 
 function FormFilmAdd(props) {
 
     const [inputFields, setInputFields] = useState(
-        //сюда нужно добавить country_id и genre_id
-        {name: '', genres: [], releaseDate: '', countries: [], assessment: '', imdbFilm: ''}
+        {name: '', genres: [], releaseDate: '', countries: [], assessment: '', imdbFilm: '', overview: ''}
     )
 
     const handleChangeInput = (event) => {
@@ -30,44 +28,30 @@ function FormFilmAdd(props) {
     const handleSubmit = (e) => {
         e.preventDefault();
         console.log(inputFields, 'inputFields')
-        // const obj = {
-        //     name: inputFields.name,
-        //     releaseDate: inputFields.releaseDate,
-        //     assessment: inputFields.assessment,
-        //     imdbFilm: inputFields.imdbFilm,
-        //     country_id: inputFields.countries[0].value ? inputFields.countries[0].value : '',
-        //     genre_id: inputFields.genres.target.value
-        // }
-        //
-        //
-        // console.log(obj, 'obj');
-
-        // console.log(inputFields.genres.target.value, 'genres');
 
         fetch('http://localhost:3000/api/film', {
             method: 'POST',
-            mode: 'no-cors',
             headers: {
                 'Accept': 'application/json',
                 'Content-type': 'application/json'
             },
             body: JSON.stringify({
-                name: inputFields.name,
-                releaseDate: inputFields.releaseDate,
-                assessment: inputFields.assessment,
-                imdbFilm: inputFields.imdbFilm,
-                country_id: inputFields.countries[0].value ? inputFields.countries[0].value : '',
-                genre_id: inputFields.genres.target.value
+                name: inputFields.name.length > 0 ? inputFields.name: '-',
+                releaseDate: inputFields.releaseDate.length > 0 ? inputFields.releaseDate.split("-").reverse().join('.') : '-',
+                assessment: inputFields.assessment.toString().length > 0 ? inputFields.assessment : '-',
+                imdbFilm: inputFields.imdbFilm.length > 0 ? inputFields.imdbFilm : '-',
+                country_id: inputFields.countries[0].value,
+                genre_id: inputFields.genres.target.value,
+                overview: inputFields.overview.length > 0 ? inputFields.overview : '-'
             })
         })
             .then(res => {
-                console.log(res, 'result')
-                // res.json()
+                res.json()
             }).catch(err => {
             console.log(err)
         })
 
-        setInputFields({name: '', genres: [], releaseDate: '', countries: [], assessment: '', imdbFilm: ''});
+        setInputFields({name: '', genres: [], releaseDate: '', countries: [], assessment: '', imdbFilm: '', overview: ''});
     }
 
     return (
@@ -137,7 +121,17 @@ function FormFilmAdd(props) {
                                 <MenuItem value="Yes">Yes</MenuItem>
                                 <MenuItem value="No">No</MenuItem>
                             </TextField>
-
+                        </div>
+                        <div className='fields__third'>
+                            <TextField
+                                className="input__overview"
+                                name="overview"
+                                rows={10}
+                                label="Overview"
+                                value={inputFields.overview}
+                                variant="outlined"
+                                onChange={event => handleChangeInput(event)}
+                            />
                         </div>
                     </div>
 

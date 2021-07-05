@@ -13,7 +13,6 @@ function InputCountries(props) {
             setCountries(getCountries)
         });
     }, []);
-    // console.log(countries, 'countries')
 
     let options = countries.map((c) => {
         const label = {

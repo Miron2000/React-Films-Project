@@ -1,3 +1,9 @@
 .input__genres {
     width: 115px;
 }
+
+@media (max-width: 768px) {
+    .input__genres {
+        width: 245px;
+    }
+}

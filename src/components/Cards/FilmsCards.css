@@ -15,6 +15,7 @@
     margin: 1rem;
     width: 300px;
     cursor: pointer;
+    border: 2px solid #b539c4;
 }
 
 .movie img {
@@ -64,6 +65,7 @@
 .movie-over p {
     color: #000;
     font-family: "Noto Sans CJK SC";
+    word-wrap: break-word;
 }
 
 .movie:hover .movie-over {
