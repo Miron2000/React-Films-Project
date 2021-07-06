@@ -42,8 +42,20 @@
     margin-top: 1rem;
 }
 
+.test {
+    display: flex;
+}
+
+.fields__fourth {
+    display: flex;
+}
+
 .input__text {
     margin-left: 25px !important;
+}
+
+.btn__indent {
+    margin-left: 16px !important;
 }
 
 .dropdown-heading {
@@ -51,29 +63,57 @@
 }
 
 .input__name {
-    width: 230px;
+    width: 371px;
+    background-color: ghostwhite;
+    border-radius: 5px;
 }
 
 .input__releaseDate {
     width: 195px;
+    background-color: ghostwhite;
+    border-radius: 5px;
 }
 
 .input__assessment {
     width: 82px;
+    background-color: ghostwhite;
+    border-radius: 5px;
+    height: 56px;
 }
 
 .input__imdb {
     width: 88px;
+    background-color: ghostwhite;
+    border-radius: 5px;
+    height: 56px;
 }
 
 .input__overview {
     width: 592px;
+    background-color: ghostwhite;
+    border-radius: 5px;
 }
 
-.btn__submit {
-    background-color: #b539c4 !important;;
+.btn__genres {
+    background-color: #7ae387 !important;
     margin-top: 1rem !important;
     border: 1px solid #b539c4 !important;
+    cursor: pointer !important;
+    height: 55px !important;
+}
+
+.btn__submit:disabled {
+    background-color: #ada1a6eb !important;
+    margin-top: 1rem !important;
+    border: 1px solid #ada1a6eb !important;
+    cursor: no-drop !important;
+}
+
+.btn__submit:enabled {
+    background-color: #b539c4 !important;
+    margin-top: 1rem !important;
+    border: 1px solid #b539c4 !important;
+    cursor: pointer !important;
 }
 
 @media (max-width: 768px) {
@@ -118,4 +158,5 @@
         margin-top: 20px !important;
         margin-left: 0 !important;
     }
+
 }

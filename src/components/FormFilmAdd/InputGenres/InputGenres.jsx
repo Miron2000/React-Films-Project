@@ -8,24 +8,17 @@ function InputGenres(props) {
     const [genres, setGenres] = useState([]);
 
     useEffect(() => {
+        props.setIsLoading(true);
         const apiUrlGenres = `http://localhost:3000/api/genres`;
         axios.get(apiUrlGenres).then((response) => {
+            props.setIsLoading(false);
             const getGenres = response.data;
             setGenres(getGenres)
         });
     }, []);
-    // console.log(genres, 'genres')
-
-    let options = genres.map((g) => {
-        const label = {
-            label: g.name,
-            value: g.id
-        }
-        return label
-    })
 
     return (
-        <div className="input__text">
+        <div className='select__genres'>
             <TextField
                 className="input__genres"
                 id="select"

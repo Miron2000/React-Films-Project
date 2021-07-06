@@ -1,9 +1,15 @@
 .input__genres {
-    width: 115px;
+    width: 371px;
+    background-color: ghostwhite;
+    border-radius: 5px;
+}
+
+.select__genres {
+    margin-top: 1rem;
 }
 
 @media (max-width: 768px) {
     .input__genres {
-        width: 245px;
+        width: 116px;
     }
 }

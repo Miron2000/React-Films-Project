@@ -7,8 +7,10 @@ function InputCountries(props) {
     const [countries, setCountries] = useState([]);
 
     useEffect(() => {
+        props.setIsLoading(true);
         const apiUrlCountries = `http://localhost:3000/api/countries`;
         axios.get(apiUrlCountries).then((response) => {
+            props.setIsLoading(false);
             const getCountries = response.data;
             setCountries(getCountries)
         });
@@ -30,7 +32,7 @@ function InputCountries(props) {
                          options={options}
                          value={props.value}
                          onChange={props.onChange}
-                         label="Country"
+                         labelledBy="Select Country"
 
             />
         </div>

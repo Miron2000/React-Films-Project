@@ -1,5 +1,7 @@
 .multi__select {
     width: 371px;
+    background-color: ghostwhite;
+    border-radius: 5px;
 }
 
 .dropdown-container {

@@ -107,6 +107,9 @@ class filmController {
             const typeFilm = await Film.create({name, releaseDate, assessment, imdbFilm, overview});
             const typeFilmGenre = await filmGenre.create({genre_id, film_id: typeFilm.id});
             const typeFilmCountry = await filmCountry.create({country_id, film_id: typeFilm.id});
+            console.log(genre_id, 'genre_id')
+            console.log(country_id, 'country_id')
+
 
             return res.json({typeFilm, typeFilmGenre, typeFilmCountry});
         } catch (err) {

@@ -6,12 +6,15 @@ import Icon from '@material-ui/core/Icon';
 import MenuItem from '@material-ui/core/MenuItem';
 import InputGenres from "./InputGenres/InputGenres";
 import InputCountries from "./InputCountries/InputCountries";
+import preloader from "../../preloader/Eclipse-1s-200px.gif";
 
 function FormFilmAdd(props) {
 
     const [inputFields, setInputFields] = useState(
-        {name: '', genres: [], releaseDate: '', countries: [], assessment: '', imdbFilm: '', overview: ''}
+        {name: '', genres: [''], releaseDate: '', countries: [], assessment: '', imdbFilm: '', overview: ''}
     )
+    const [isLoading, setIsLoading] = useState(false);
+    const [disabled, setDisabled] = useState(true);
 
     const handleChangeInput = (event) => {
         const values = {...inputFields};
@@ -19,10 +22,57 @@ function FormFilmAdd(props) {
         setInputFields(values)
     }
 
-    const onFieldChange = (fieldName, value) => {
+    const onFieldChangeCountries = (fieldName, value) => {
         const values = {...inputFields};
         values[fieldName] = value;
-        setInputFields(values)
+        setInputFields(values);
+        // console.log(values[fieldName], 'values[fieldName]');
+
+        // if( values[fieldName].length > 0) {
+        //     setDisabled(false);
+        // }  else {
+        //     setDisabled(true);
+        // }
+    }
+
+    const onFieldChangeGenres = (fieldName, value, index) => {
+        console.log(fieldName, 'fieldName');
+        console.log(value, 'value')
+        const values = {...inputFields};
+        values[fieldName] = value;
+        setInputFields(values);
+        // console.log(values[fieldName], 'values[fieldName]');
+
+        // if( values[fieldName].length > 0) {
+        //     setDisabled(false);
+        // }  else {
+        //     setDisabled(true);
+        // }
+    }
+
+    // useEffect(() => {
+    //     if(inputFields.genres.length > 0 && inputFields.countries.length > 0 && inputFields.name.length > 0) {
+    //         setDisabled(false);
+    //     } else {
+    //         setDisabled(true);
+    //     }
+    // }, [inputFields.genres, inputFields.countries])
+
+    const nameHandler = (fieldName, event) => {
+        const values = {...inputFields};
+        values[fieldName] = event.target.value;
+        setInputFields(values);
+
+        if (values[fieldName].length > 0) {
+            setDisabled(false);
+        } else {
+            setDisabled(true);
+        }
+
+    }
+
+    const addSelectGenre = () => {
+        setInputFields({...inputFields, genres: [...inputFields.genres, '']})
     }
 
     const handleSubmit = (e) => {
@@ -36,12 +86,14 @@ function FormFilmAdd(props) {
                 'Content-type': 'application/json'
             },
             body: JSON.stringify({
-                name: inputFields.name.length > 0 ? inputFields.name: '-',
+                name: inputFields.name,
                 releaseDate: inputFields.releaseDate.length > 0 ? inputFields.releaseDate.split("-").reverse().join('.') : '-',
                 assessment: inputFields.assessment.toString().length > 0 ? inputFields.assessment : '-',
                 imdbFilm: inputFields.imdbFilm.length > 0 ? inputFields.imdbFilm : '-',
-                country_id: inputFields.countries[0].value,
-                genre_id: inputFields.genres.target.value,
+                // country_id: inputFields.countries[0].value,
+                // genre_id: inputFields.genres.target.value,
+                country_id: inputFields.countries,
+                genre_id: inputFields.genres,
                 overview: inputFields.overview.length > 0 ? inputFields.overview : '-'
             })
         })
@@ -51,13 +103,22 @@ function FormFilmAdd(props) {
             console.log(err)
         })
 
-        setInputFields({name: '', genres: [], releaseDate: '', countries: [], assessment: '', imdbFilm: '', overview: ''});
+        setInputFields({
+            name: '',
+            genres: [],
+            releaseDate: '',
+            countries: [],
+            assessment: '',
+            imdbFilm: '',
+            overview: ''
+        });
     }
 
     return (
         <div className='page__add-film'>
+            {isLoading ? <img className='preloader' src={preloader}/> : null}
             <h1 className='title__add-film'>Add new Film</h1>
-            <div className="container__form">
+            <div className="container__form" style={isLoading ? {display: 'none'} : {display: ''}}>
                 <form className='form__add-film' onSubmit={handleSubmit}>
                     <div className='container__add-film'>
 
@@ -68,12 +129,9 @@ function FormFilmAdd(props) {
                                 label="Film Name"
                                 value={inputFields.name}
                                 variant="outlined"
-                                onChange={event => handleChangeInput(event)}
+                                onChange={(event) => nameHandler('name', event)}
 
                             />
-
-                            <InputGenres onChange={(value) => onFieldChange('genres', value)}
-                                         value={inputFields.genres}/>
 
                             <TextField
                                 className='input__text input__releaseDate'
@@ -91,8 +149,9 @@ function FormFilmAdd(props) {
 
                         <div className='fields__second'>
 
-                            <InputCountries onChange={(value) => onFieldChange('countries', value)}
-                                            value={inputFields.countries}/>
+                            <InputCountries onChange={(value) => onFieldChangeCountries('countries', value)}
+                                            value={inputFields.countries} isLoading={isLoading}
+                                            setIsLoading={setIsLoading}/>
 
                             <TextField
                                 className='input__text input__assessment'
@@ -133,12 +192,31 @@ function FormFilmAdd(props) {
                                 onChange={event => handleChangeInput(event)}
                             />
                         </div>
+                        <div className='fields__fourth'>
+                            <div>
+                                {inputFields.genres.map((genre, index) => {
+                                    console.log(genre, 'genre')
+                                    return (
+                                        <InputGenres key={index}
+                                                     onChange={(event) => onFieldChangeGenres('genres', event.target.value, index)}
+                                                     value={inputFields.genres}
+                                                     isLoading={isLoading}
+                                                     setIsLoading={setIsLoading}/>)
+                                })}
+                            </div>
+                            <Button
+                                className="btn__genres btn__indent"
+                                variant="contained"
+                                onClick={addSelectGenre}>Add Genre
+                            </Button>
+                        </div>
                     </div>
 
                     <Button
                         className="btn__submit"
                         variant="contained"
                         type="submit"
+                        disabled={disabled}
                         endIcon={<Icon>send</Icon>}
                         onClick={handleSubmit}>Add Film
                     </Button>
