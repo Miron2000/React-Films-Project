@@ -3,6 +3,7 @@ import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import {faSearch} from '@fortawesome/free-solid-svg-icons';
 import {DebounceInput} from 'react-debounce-input';
 import './Table.css';
+import logo from "../../logo/logo.png";
 
 function FilteredInputs(props) {
 
@@ -38,6 +39,7 @@ function FilteredInputs(props) {
                     <div>Search Term: {props.searchQuery}</div>
 
                 </div>
+                <div><img className="img__table" src={logo} alt="logo"/></div>
                 <div className="searchInputs__item"><input className="searchInputs__search"
                                                            type="number"
                                                            name="q"

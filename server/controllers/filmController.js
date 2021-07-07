@@ -105,11 +105,16 @@ class filmController {
         try {
             const {name, releaseDate, assessment, imdbFilm, genre_id, country_id, overview} = req.body
             const typeFilm = await Film.create({name, releaseDate, assessment, imdbFilm, overview});
-            const typeFilmGenre = await filmGenre.create({genre_id, film_id: typeFilm.id});
-            const typeFilmCountry = await filmCountry.create({country_id, film_id: typeFilm.id});
+            const typeFilmGenre = genre_id.map((id) => {
+               return filmGenre.create({genre_id: id, film_id: typeFilm.id});
+            })
+            const typeFilmCountry = country_id.map((id) => {
+                return  filmCountry.create({country_id: id, film_id: typeFilm.id});
+            })
+
             console.log(genre_id, 'genre_id')
             console.log(country_id, 'country_id')
-
+            await Promise.all([typeFilmGenre, typeFilmCountry]);
 
             return res.json({typeFilm, typeFilmGenre, typeFilmCountry});
         } catch (err) {

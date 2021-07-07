@@ -26,50 +26,33 @@ function FormFilmAdd(props) {
         const values = {...inputFields};
         values[fieldName] = value;
         setInputFields(values);
-        // console.log(values[fieldName], 'values[fieldName]');
-
-        // if( values[fieldName].length > 0) {
-        //     setDisabled(false);
-        // }  else {
-        //     setDisabled(true);
-        // }
     }
 
-    const onFieldChangeGenres = (fieldName, value, index) => {
-        console.log(fieldName, 'fieldName');
-        console.log(value, 'value')
+    const onFieldChangeGenres = (fieldName, event, index) => {
         const values = {...inputFields};
-        values[fieldName] = value;
+        const valuesGenres = [...inputFields.genres];
+        console.log(valuesGenres, 'valuesGenres');
+        valuesGenres[index] = event;
+        console.log(valuesGenres[index], 'valuesGenres')
+        values[fieldName] = valuesGenres;
+        console.log(values[fieldName], 'values[fieldName]')
         setInputFields(values);
-        // console.log(values[fieldName], 'values[fieldName]');
-
-        // if( values[fieldName].length > 0) {
-        //     setDisabled(false);
-        // }  else {
-        //     setDisabled(true);
-        // }
     }
 
-    // useEffect(() => {
-    //     if(inputFields.genres.length > 0 && inputFields.countries.length > 0 && inputFields.name.length > 0) {
-    //         setDisabled(false);
-    //     } else {
-    //         setDisabled(true);
-    //     }
-    // }, [inputFields.genres, inputFields.countries])
-
-    const nameHandler = (fieldName, event) => {
+    const onFieldChangeName = (fieldName, event) => {
         const values = {...inputFields};
         values[fieldName] = event.target.value;
         setInputFields(values);
+    }
 
-        if (values[fieldName].length > 0) {
+    useEffect(() => {
+        console.log(inputFields.genres.length, 'inputFields.genres.length')
+        if (inputFields.countries.length > 0 && inputFields.genres.length > 0 && inputFields.name.length > 0) {
             setDisabled(false);
         } else {
             setDisabled(true);
         }
-
-    }
+    }, [inputFields.countries, inputFields.genres, inputFields.name])
 
     const addSelectGenre = () => {
         setInputFields({...inputFields, genres: [...inputFields.genres, '']})
@@ -90,10 +73,8 @@ function FormFilmAdd(props) {
                 releaseDate: inputFields.releaseDate.length > 0 ? inputFields.releaseDate.split("-").reverse().join('.') : '-',
                 assessment: inputFields.assessment.toString().length > 0 ? inputFields.assessment : '-',
                 imdbFilm: inputFields.imdbFilm.length > 0 ? inputFields.imdbFilm : '-',
-                // country_id: inputFields.countries[0].value,
-                // genre_id: inputFields.genres.target.value,
-                country_id: inputFields.countries,
-                genre_id: inputFields.genres,
+                country_id: inputFields.countries.map((country) => country.value),
+                genre_id: inputFields.genres.filter(genres => genres),
                 overview: inputFields.overview.length > 0 ? inputFields.overview : '-'
             })
         })
@@ -105,7 +86,7 @@ function FormFilmAdd(props) {
 
         setInputFields({
             name: '',
-            genres: [],
+            genres: [''],
             releaseDate: '',
             countries: [],
             assessment: '',
@@ -121,15 +102,14 @@ function FormFilmAdd(props) {
             <div className="container__form" style={isLoading ? {display: 'none'} : {display: ''}}>
                 <form className='form__add-film' onSubmit={handleSubmit}>
                     <div className='container__add-film'>
-
                         <div className='fields__first'>
-                            <TextField
-                                className="input__name"
-                                name="name"
-                                label="Film Name"
-                                value={inputFields.name}
-                                variant="outlined"
-                                onChange={(event) => nameHandler('name', event)}
+                            <span className='star__required-field'>*</span>
+                            <TextField className="input__name"
+                                       name="name"
+                                       label="Film Name"
+                                       value={inputFields.name}
+                                       variant="outlined"
+                                       onChange={(event) => onFieldChangeName('name', event)}
 
                             />
 
@@ -146,9 +126,8 @@ function FormFilmAdd(props) {
                                 }}
                             />
                         </div>
-
                         <div className='fields__second'>
-
+                            <span className='star__required-field'>*</span>
                             <InputCountries onChange={(value) => onFieldChangeCountries('countries', value)}
                                             value={inputFields.countries} isLoading={isLoading}
                                             setIsLoading={setIsLoading}/>
@@ -192,10 +171,11 @@ function FormFilmAdd(props) {
                                 onChange={event => handleChangeInput(event)}
                             />
                         </div>
+
                         <div className='fields__fourth'>
+                            <span className='star__required-field_fields__fourth'>*</span>
                             <div>
                                 {inputFields.genres.map((genre, index) => {
-                                    console.log(genre, 'genre')
                                     return (
                                         <InputGenres key={index}
                                                      onChange={(event) => onFieldChangeGenres('genres', event.target.value, index)}

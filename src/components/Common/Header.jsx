@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import './Header.css';
-import logo from "../../logo/logo";
+import logo from "../../logo/logo.png";
 import {NavLink} from "react-router-dom";
 import HamburgerMenu from "./Hamburger-menu";
 

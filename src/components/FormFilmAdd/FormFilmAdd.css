@@ -21,6 +21,7 @@
     background: #86b5c2;
     border: 2px solid #b539c4;
     border-radius: 8px;
+    /*position: relative;*/
 }
 
 .container__add-film {
@@ -31,23 +32,42 @@
 
 .fields__first {
     display: flex;
+    position: relative;
 }
 
 .fields__second {
     display: flex;
     margin-top: 1rem;
+    position: relative;
 }
 
 .fields__third {
     margin-top: 1rem;
 }
 
-.test {
-    display: flex;
-}
-
 .fields__fourth {
     display: flex;
+    position: relative;
+}
+
+.star__required-field{
+    color: red;
+    position: absolute;
+    z-index: 1;
+    right: 14rem;
+}
+
+.star__required-field_fields__fourth {
+    color: red;
+    position: absolute;
+    z-index: 1;
+    top: 18px;
+    right: 132px;
+}
+
+.MuiInputLabel-shrink {
+    margin-top: -7px !important;
+    color: white !important;
 }
 
 .input__text {
@@ -132,6 +152,9 @@
 
     .fields__second {
         flex-direction: column;
+    }
+    .star__required-field {
+        right: 0;
     }
 
     .input__name {

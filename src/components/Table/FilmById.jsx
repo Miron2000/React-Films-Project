@@ -1,17 +1,33 @@
-import React, {useEffect, useState} from 'react';
+import React, {useEffect, useState, useCallback} from 'react';
 import './FilmById.css'
-import axios from 'axios';
+import preloader from "../../preloader/Eclipse-1s-200px.gif";
 
 function FilmById(props) {
+    function useFetch(url, defaultResponse) {
+        const [film, setFilm] = useState(defaultResponse);
 
-    const [film, setFilm] = useState('');
-    useEffect(() => {
-        const apiUrlFilmById = `http://localhost:3000/api/film/${props.match.params.id}`;
-        axios.get(apiUrlFilmById).then((response) => {
-            const getFilm = response.data;
-            setFilm(getFilm)
-        });
-    }, [setFilm])
+        async function getApiUrlFilmById(url) {
+            try {
+                const res = await fetch(url);
+                const film = await res.json();
+                setFilm({isLoading: false, film})
+            } catch (err) {
+                console.log(err);
+            }
+        }
+        useEffect(() => {
+            getApiUrlFilmById(url);
+        }, [url]);
+
+        return film
+    }
+
+    const apiUrl = `http://localhost:3000/api/film/${props.match.params.id}`;
+    const userFetchResponse = useFetch(apiUrl, {isLoading: true, film: null});
+    if(!userFetchResponse.film || userFetchResponse.isLoading) {
+        return <img className='preloader' src={preloader}/>;
+    }
+    console.log(userFetchResponse.film, 'userFetchResponse');
 
     const getFilmImg = (film) => {
         let imgFilm = film.imageFilm;
@@ -22,31 +38,31 @@ function FilmById(props) {
         return img
     }
 
-    if (!film || film.length === 0) return <p>there is no data.</p>
+
+    const {name, genre, releaseDate, country, assessment, imdbFilm, overview} = userFetchResponse.film;
     return (
         <div className='film-container'>
             <div className='film-img'>
-                {getFilmImg(film)}
+                {getFilmImg(userFetchResponse.film)}
             </div>
             <div className='film-info'>
                 <div>
-                    <h2 className='shadow'>{film.name}</h2>
+                    <h2 className='shadow'>{name}</h2>
                 </div>
                 <div>
-                    <h3 className='film-info__text'>Genre: <span className='film-info__span'>{film.genre}</span></h3>
+                    <h3 className='film-info__text'>Genre: <span className='film-info__span'>{genre}</span></h3>
                     <h3 className='film-info__text'>Release date: <span
-                        className='film-info__span'>{film.releaseDate}</span></h3>
-                    <h3 className='film-info__text'>Country: <span className='film-info__span'>{film.country}</span>
+                        className='film-info__span'>{releaseDate}</span></h3>
+                    <h3 className='film-info__text'>Country: <span className='film-info__span'>{country}</span>
                     </h3>
-                    <h3 className='film-info__text'>Rating: <span className='film-info__span'>{film.assessment}</span>
+                    <h3 className='film-info__text'>Rating: <span className='film-info__span'>{assessment}</span>
                     </h3>
-                    <h3 className='film-info__text'>IMDB: <span className='film-info__span'>{film.imdbFilm}</span></h3>
-                    <h3 className='film-info__text'>Overview: <span className='film-info__span'>{film.overview}</span>
+                    <h3 className='film-info__text'>IMDB: <span className='film-info__span'>{imdbFilm}</span></h3>
+                    <h3 className='film-info__text'>Overview: <span className='film-info__span'>{overview}</span>
                     </h3>
                 </div>
             </div>
         </div>
-
     );
 }
 

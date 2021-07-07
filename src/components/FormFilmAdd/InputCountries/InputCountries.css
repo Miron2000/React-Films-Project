@@ -2,6 +2,7 @@
     width: 371px;
     background-color: ghostwhite;
     border-radius: 5px;
+    border: 1px solid white;
 }
 
 .dropdown-container {
