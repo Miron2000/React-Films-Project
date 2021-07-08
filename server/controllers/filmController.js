@@ -112,8 +112,6 @@ class filmController {
                 return  filmCountry.create({country_id: id, film_id: typeFilm.id});
             })
 
-            console.log(genre_id, 'genre_id')
-            console.log(country_id, 'country_id')
             await Promise.all([typeFilmGenre, typeFilmCountry]);
 
             return res.json({typeFilm, typeFilmGenre, typeFilmCountry});
@@ -147,7 +145,6 @@ class filmController {
         }, {
             where: {id: id}
         }).then(num => {
-            console.log(num, 'NUM')
             res.send({
                 message: "Film was updated successfully."
             });

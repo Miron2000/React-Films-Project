@@ -31,11 +31,8 @@ function FormFilmAdd(props) {
     const onFieldChangeGenres = (fieldName, event, index) => {
         const values = {...inputFields};
         const valuesGenres = [...inputFields.genres];
-        console.log(valuesGenres, 'valuesGenres');
         valuesGenres[index] = event;
-        console.log(valuesGenres[index], 'valuesGenres')
         values[fieldName] = valuesGenres;
-        console.log(values[fieldName], 'values[fieldName]')
         setInputFields(values);
     }
 
@@ -46,8 +43,7 @@ function FormFilmAdd(props) {
     }
 
     useEffect(() => {
-        console.log(inputFields.genres.length, 'inputFields.genres.length')
-        if (inputFields.countries.length > 0 && inputFields.genres.length > 0 && inputFields.name.length > 0) {
+        if (inputFields.countries.length > 0 && inputFields.genres.filter(genres => genres).length > 0 && inputFields.name.length > 0) {
             setDisabled(false);
         } else {
             setDisabled(true);

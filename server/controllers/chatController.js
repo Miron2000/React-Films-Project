@@ -12,7 +12,6 @@ class chatController {
                 name: chat.name,
                 message: chat.message
             }
-            console.log(objChat)
             return objChat
         })
         try {

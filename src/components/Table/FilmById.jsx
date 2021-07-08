@@ -1,33 +1,15 @@
-import React, {useEffect, useState, useCallback} from 'react';
+import React from 'react';
 import './FilmById.css'
 import preloader from "../../preloader/Eclipse-1s-200px.gif";
+import useFetch from "./CustomHook/useFetchForFilmById";
 
 function FilmById(props) {
-    function useFetch(url, defaultResponse) {
-        const [film, setFilm] = useState(defaultResponse);
-
-        async function getApiUrlFilmById(url) {
-            try {
-                const res = await fetch(url);
-                const film = await res.json();
-                setFilm({isLoading: false, film})
-            } catch (err) {
-                console.log(err);
-            }
-        }
-        useEffect(() => {
-            getApiUrlFilmById(url);
-        }, [url]);
-
-        return film
-    }
 
     const apiUrl = `http://localhost:3000/api/film/${props.match.params.id}`;
-    const userFetchResponse = useFetch(apiUrl, {isLoading: true, film: null});
-    if(!userFetchResponse.film || userFetchResponse.isLoading) {
+    const userFetchResponse = useFetch(apiUrl, null);
+    if (!userFetchResponse.film || userFetchResponse.loading) {
         return <img className='preloader' src={preloader}/>;
     }
-    console.log(userFetchResponse.film, 'userFetchResponse');
 
     const getFilmImg = (film) => {
         let imgFilm = film.imageFilm;
