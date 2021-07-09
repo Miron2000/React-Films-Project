@@ -1,5 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import './FormFilmAdd.css';
+import ReactJsAlert from "reactjs-alert";
 import TextField from "@material-ui/core/TextField";
 import Button from '@material-ui/core/Button';
 import Icon from '@material-ui/core/Icon';
@@ -15,6 +16,8 @@ function FormFilmAdd(props) {
     )
     const [isLoading, setIsLoading] = useState(false);
     const [disabled, setDisabled] = useState(true);
+    const [statusAlert, setStatusAlert] = useState(true);
+    const [activeAlert, setActiveAlert] = useState();
 
     const handleChangeInput = (event) => {
         const values = {...inputFields};
@@ -56,7 +59,8 @@ function FormFilmAdd(props) {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        console.log(inputFields, 'inputFields')
+        console.log(inputFields, 'inputFields');
+
 
         fetch('http://localhost:3000/api/film', {
             method: 'POST',
@@ -76,6 +80,7 @@ function FormFilmAdd(props) {
         })
             .then(res => {
                 res.json()
+                setActiveAlert(statusAlert)
             }).catch(err => {
             console.log(err)
         })
@@ -93,6 +98,12 @@ function FormFilmAdd(props) {
 
     return (
         <div className='page__add-film'>
+            {activeAlert ? <ReactJsAlert
+                status={statusAlert}
+                type="success"
+                title='The film has been successfully added'
+                Close={() => setStatusAlert(false)}
+            /> : null}
             {isLoading ? <img className='preloader' src={preloader}/> : null}
             <h1 className='title__add-film'>Add new Film</h1>
             <div className="container__form" style={isLoading ? {display: 'none'} : {display: ''}}>
