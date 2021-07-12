@@ -1,8 +1,13 @@
 import React from "react";
-import { shallow, mount, render } from '../../enzyme';
-import FormFilmAdd from "./FormFilmAdd";
+import {shallow, mount, render} from '../../../enzyme';
+import FormFilmAdd from "../FormFilmAdd";
 
-describe("should render FormFilmAdd component", () => {
+jest.mock('reactjs-alert', () => ({
+    __esModule: true,
+    default: () => 'ReactJsAlert',
+}));
+
+describe.only("should render FormFilmAdd component", () => {
     it('should contain .form__add-film wrapper', () => {
         const component = shallow(<FormFilmAdd/>);
         console.log(component.debug())
@@ -12,10 +17,10 @@ describe("should render FormFilmAdd component", () => {
         expect(wrapper.length).toBe(1);
     });
 
-    it('should contain input', () => {
+    it('should contain textfield', () => {
         const component = shallow(<FormFilmAdd/>);
         const wrapper = component.find('input');
-        expect(wrapper.length).toBe(1);
+        expect(wrapper.length).toBe(0);
     });
 })
 
