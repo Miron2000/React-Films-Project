@@ -1,0 +1,185 @@
+.page__add-film {
+    margin-top: 2rem;
+    margin-bottom: 5rem;
+}
+
+.title__add-film {
+    font-family: "Noto Sans CJK SC";
+    font-size: 2rem;
+    text-align: center;
+    color: #86b5c2;
+}
+
+.container__form {
+    display: flex;
+    justify-content: center;
+}
+
+.form__add-film {
+    width: 590px;
+    padding: 20px 30px;
+    background: #86b5c2;
+    border: 2px solid #b539c4;
+    border-radius: 8px;
+    /*position: relative;*/
+}
+
+.container__add-film {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+.fields__first {
+    display: flex;
+    position: relative;
+}
+
+.fields__second {
+    display: flex;
+    margin-top: 1rem;
+    position: relative;
+}
+
+.fields__third {
+    margin-top: 1rem;
+}
+
+.fields__fourth {
+    display: flex;
+    position: relative;
+}
+
+.star__required-field{
+    color: red;
+    position: absolute;
+    z-index: 1;
+    right: 14rem;
+}
+
+.star__required-field_fields__fourth {
+    color: red;
+    position: absolute;
+    z-index: 1;
+    top: 18px;
+    right: 132px;
+}
+
+.MuiInputLabel-shrink {
+    margin-top: -7px !important;
+    color: white !important;
+}
+
+.input__text {
+    margin-left: 25px !important;
+}
+
+.btn__indent {
+    margin-left: 16px !important;
+}
+
+.dropdown-heading {
+    height: 56px !important;
+}
+
+.input__name {
+    width: 371px;
+    background-color: ghostwhite;
+    border-radius: 5px;
+}
+
+.input__releaseDate {
+    width: 195px;
+    background-color: ghostwhite;
+    border-radius: 5px;
+}
+
+.input__assessment {
+    width: 82px;
+    background-color: ghostwhite;
+    border-radius: 5px;
+    height: 56px;
+}
+
+.input__imdb {
+    width: 88px;
+    background-color: ghostwhite;
+    border-radius: 5px;
+    height: 56px;
+}
+
+.input__overview {
+    width: 592px;
+    background-color: ghostwhite;
+    border-radius: 5px;
+}
+
+.btn__genres {
+    background-color: #7ae387 !important;
+    margin-top: 1rem !important;
+    border: 1px solid #b539c4 !important;
+    cursor: pointer !important;
+    height: 55px !important;
+}
+
+.btn__submit:disabled {
+    background-color: #ada1a6eb !important;
+    margin-top: 1rem !important;
+    border: 1px solid #ada1a6eb !important;
+    cursor: no-drop !important;
+}
+
+.btn__submit:enabled {
+    background-color: #b539c4 !important;
+    margin-top: 1rem !important;
+    border: 1px solid #b539c4 !important;
+    cursor: pointer !important;
+}
+
+@media (max-width: 768px) {
+    .form__add-film {
+        width: auto;
+        margin: auto;
+    }
+
+    .container__form {
+        flex-direction: column;
+    }
+
+    .fields__first {
+        flex-direction: column;
+    }
+
+    .fields__second {
+        flex-direction: column;
+    }
+    .star__required-field {
+        right: 0;
+    }
+
+    .input__name {
+        width: 245px;
+    }
+
+    .input__releaseDate {
+        width: 245px;
+    }
+
+    .input__assessment {
+        width: 245px;
+    }
+
+    .input__imdb {
+        width: 245px;
+    }
+
+    .input__overview {
+        width: 245px;
+    }
+
+    .input__text {
+        margin-top: 20px !important;
+        margin-left: 0 !important;
+    }
+
+}

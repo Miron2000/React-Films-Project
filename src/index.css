@@ -8,6 +8,7 @@ body {
     flex-direction: column;
     min-height: 100vh;
 }
+
 .dark-mode {
     background-color: #626363;
     color: #999;
@@ -21,8 +22,20 @@ body {
     height: 100%;
     transition: background-color 0.25s ease-in-out;
 }
+
 a {
     color: #ffff;
     text-decoration: none;
+}
+
+.common {
+    display: flex;
+    justify-content: space-between;
+}
+
+.text__noAuthUser {
+    text-align: center;
+    color: #86b5c2;
+    font-family: "Noto Sans CJK SC";
 }
 

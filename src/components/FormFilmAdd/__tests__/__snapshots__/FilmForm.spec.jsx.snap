@@ -1,0 +1,3 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`FormFilmAdd component should render FormFilmAdd component 1`] = `ShallowWrapper {}`;

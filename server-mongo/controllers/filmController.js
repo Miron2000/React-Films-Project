@@ -106,7 +106,6 @@ const filmController = {
         }, {new: true})
             .exec()
             .then(data => {
-                console.log(data, 'data')
                 if (!data) {
                     res.status(404).send({message: `Cannot Update film with ${id}. Maybe film not found!`})
                 } else {

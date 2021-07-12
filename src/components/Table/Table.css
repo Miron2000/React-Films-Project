@@ -14,7 +14,7 @@
 }
 .searchInputs {
     display: flex;
-    justify-content: space-around;
+    justify-content: space-evenly;
 }
 .searchInputs__item {
     padding: 10px 20px;
@@ -104,6 +104,11 @@
     cursor: pointer;
 }
 
+.img__table {
+    height: 11rem;
+    border-radius: 100px;
+}
+
 @media (max-width: 768px) {
     .searchInputs__item {
         font-size: 16px;
@@ -147,6 +152,10 @@
     .table .th:not(:last-child) {
         border: none;
     }
+
+    .img__table {
+        height: 8rem;
+    }
 }
 
 @media (max-width: 500px) {
@@ -155,5 +164,9 @@
     }
     .autocomplete{
         width: 126px;
+    }
+
+    .img__table {
+        height: 5rem;
     }
 }

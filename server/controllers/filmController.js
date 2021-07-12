@@ -2,7 +2,6 @@ const {Film, filmCountry, filmGenre} = require('../models/models');
 const ApiError = require('../error/ApiError');
 const sequelize = require('../db');
 const express = require('express');
-
 const app = express();
 
 class filmController {
@@ -27,7 +26,9 @@ class filmController {
                 releaseDate: film.releaseDate,
                 countries: countryName.toString(),
                 assessment: film.assessment,
-                imdbFilm: film.imdbFilm
+                imdbFilm: film.imdbFilm,
+                imageFilm: film.imageFilm,
+                overview: film.overview
             }
             return objFilm
         })
@@ -54,7 +55,9 @@ class filmController {
             releaseDate: film.releaseDate,
             country: countryName ? countryName.toString() : '',
             assessment: film.assessment,
-            imdbFilm: film.imdbFilm
+            imdbFilm: film.imdbFilm,
+            imageFilm: film.imageFilm,
+            overview: film.overview
         }
 
         try {
@@ -64,12 +67,52 @@ class filmController {
         }
     }
 
+    async getFilmGenre(req, res, next) {
+        const genresArr = await sequelize.query(`SELECT * from genres`);
+
+        const genre = genresArr[0].map((g) => {
+            const objGenre = {
+                id: g.id,
+                name: g.name_genre
+            }
+            return objGenre
+        })
+        try {
+            res.send(genre);
+        } catch (err) {
+            next(ApiError.badRequest(err.message));
+        }
+    }
+
+    async getFilmCountry(req, res, next) {
+        const countriesArr = await sequelize.query(`SELECT * from countries`);
+
+        const country = countriesArr[0].map((c) => {
+            const objCountry = {
+                id: c.id,
+                name: c.name_country
+            }
+            return objCountry
+        })
+        try {
+            res.send(country);
+        } catch (err) {
+            next(ApiError.badRequest(err.message));
+        }
+    }
+
     async addFilm(req, res, next) {
         try {
-            const {name, releaseDate, assessment, imdbFilm, genre_id, country_id} = req.body
-            const typeFilm = await Film.create({name, releaseDate, assessment, imdbFilm});
-            const typeFilmGenre = await filmGenre.create({genre_id, film_id: typeFilm.id});
-            const typeFilmCountry = await filmCountry.create({country_id, film_id: typeFilm.id});
+            const {name, releaseDate, assessment, imdbFilm, genre_id, country_id, overview} = req.body
+            const typeFilm = await Film.create({name, releaseDate, assessment, imdbFilm, overview});
+            const typeFilmGenre = genre_id.map((id) => {
+               return filmGenre.create({genre_id: id, film_id: typeFilm.id});
+            })
+            const typeFilmCountry = country_id.map((id) => {
+                return  filmCountry.create({country_id: id, film_id: typeFilm.id});
+            })
+
+            await Promise.all([typeFilmGenre, typeFilmCountry]);
 
             return res.json({typeFilm, typeFilmGenre, typeFilmCountry});
         } catch (err) {
@@ -77,7 +120,6 @@ class filmController {
         }
 
     }
-
 
     async updateFilm(req, res) {
         if (!req.body) {
@@ -90,8 +132,8 @@ class filmController {
         await sequelize.query(`DELETE FROM film_genres WHERE film_id = ${id}`);
 
         const {name, releaseDate, assessment, imdbFilm, genreId, countryId} = req.body;
-        const typeFilmGenre = await filmGenre.create({genre_id: genreId, film_id:id});
-        const typeFilmCountry = await filmCountry.create({country_id: countryId, film_id:id});
+        const typeFilmGenre = await filmGenre.create({genre_id: genreId, film_id: id});
+        const typeFilmCountry = await filmCountry.create({country_id: countryId, film_id: id});
 
         const updateFilm = await Film.update({
             name: name ? name : 'Name not specified',
@@ -103,7 +145,6 @@ class filmController {
         }, {
             where: {id: id}
         }).then(num => {
-            console.log(num, 'NUM')
             res.send({
                 message: "Film was updated successfully."
             });

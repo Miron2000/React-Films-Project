@@ -1,9 +1,11 @@
-import React, {useState} from 'react';
+import React, {useState, useCallback} from 'react';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import {faSearch} from '@fortawesome/free-solid-svg-icons';
+import {DebounceInput} from 'react-debounce-input';
 import './Table.css';
+import logo from "../../logo/logo.png";
 
-function FilteredInputs(props){
+function FilteredInputs(props) {
 
     const [isOpen, setIsOpen] = useState(true);
 
@@ -16,8 +18,11 @@ function FilteredInputs(props){
         setIsOpen(true);
     }
 
+    const onChange = (event) => {
+        props.setSearchQuery(event.target.value);
+    }
 
-    return(
+    return (
         <>
             <div className='searchInputs'>
                 <div className="searchInputs__item">
@@ -27,12 +32,14 @@ function FilteredInputs(props){
                            name="q"
                            placeholder="Search..."
                            value={props.searchQuery}
-                           onChange={(event) => props.setSearchQuery(event.target.value)}
-                           />
+                           onChange={onChange}/>
+
                     <span className='icon__search'><FontAwesomeIcon icon={faSearch}/></span>
 
+                    <div>Search Term: {props.searchQuery}</div>
 
                 </div>
+                <div><img className="img__table" src={logo} alt="logo"/></div>
                 <div className="searchInputs__item"><input className="searchInputs__search"
                                                            type="number"
                                                            name="q"

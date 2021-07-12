@@ -1,0 +1,21 @@
+.multi__select {
+    width: 371px;
+    background-color: ghostwhite;
+    border-radius: 5px;
+    border: 1px solid white;
+}
+
+.dropdown-container {
+    background: none !important;
+    border: 1px solid rgba(0, 0, 0, 0.23) !important;
+}
+
+.gray {
+    color: #666666 !important;
+}
+
+@media (max-width: 768px) {
+    .multi__select {
+        width: 245px;
+    }
+}
